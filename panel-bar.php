@@ -74,7 +74,7 @@ class PanelBar {
     $block .= '<a href="'.$args['first']['url'].'">';
     if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
     if (isset($args['first']['text'])) $block .= '<span>'.$args['first']['text'].'</span>';
-    $block .= '<i class="fa fa-caret-down fa-styleless"></i>';
+    $block .= '<i class="fa fa-caret-'.(c::get('panelbar.position') == 'bottom' ? 'up' : 'down').' fa-styleless"></i>';
     $block .= '</a>';
 
     // all other items
