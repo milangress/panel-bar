@@ -60,8 +60,8 @@ class PanelBar {
   public static function link($args) {
     $block  = '<div class="panelbar__btn panelbar--'.$args['id'].'" '.self::float($args).'>';
     $block .= '<a href="'.$args['url'].'">';
-    $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
-    $block .= '<span>'.$args['text'].'</span>';
+    if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
+    if (isset($args['text'])) $block .= '<span>'.$args['text'].'</span>';
     $block .= '</a>';
     $block .= '</div>';
     return $block;
@@ -72,8 +72,9 @@ class PanelBar {
 
     // current item
     $block .= '<a href="'.$args['first']['url'].'">';
-    $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
-    $block .= '<span>'.$args['first']['text'].'</span>';
+    if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
+    if (isset($args['first']['text'])) $block .= '<span>'.$args['first']['text'].'</span>';
+    $block .= '<i class="fa fa-caret-down fa-styleless"></i>';
     $block .= '</a>';
 
     // all other items
@@ -130,7 +131,7 @@ class PanelBar {
   protected function logout() {
     return self::link(array(
       'id'    => 'logout',
-      'icon'  => 'sign-out',
+      'icon'  => 'power-off',
       'url'   => $this->site->url().'/panel/logout',
       'text'  => 'Logout',
       'float' => 'right'
