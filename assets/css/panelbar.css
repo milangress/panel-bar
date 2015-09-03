@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(http://kirby:8888/panel/assets/fonts/sourcesanspro-400.woff) format("woff")
+}
+
 
 body {
   margin-top: 60px !important;
@@ -10,7 +17,7 @@ body {
   right: 0;
 
   height: 60px;
-  padding: 5px 15px;
+  padding: 0 30px;
 
   background-color :#000;
   box-shadow:rgba(0,0,0,0.075) 0 0px 4px;
@@ -20,15 +27,28 @@ body {
 
 .panelbar__btn {
   display: inline-block;
-  font-size: .8em;
+
+  font-family: 'Source Sans Pro', 'Apple LiGothic Medium', 'Microsoft JhengHei UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: .85em;
+  font-weight: normal;
+
+  padding: 15px 16px;
+  border-left: 1px solid #555;
 }
 
 .panelbar__btn > a {
   color: #fff;
+  transition: none;
+}
+
+.panelbar__btn > a:hover {
+  color: #999;
+  transition: none;
 }
 
 .panelbar__btn--logout {
   float: right;
+  border-left: none;
 }
 
 .panelbar__btn--logout > a {
