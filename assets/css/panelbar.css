@@ -1,3 +1,6 @@
+
+/* Fonts */
+
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
 
 @font-face {
@@ -7,11 +10,13 @@
     src: url(http://kirby:8888/panel/assets/fonts/sourcesanspro-400.woff) format("woff")
 }
 
+/* Bar */
+
 .panelbar {
   position: fixed;
+  z-index: 1001;
   left: 0;
   right: 0;
-
   height: 50px;
 
   background-color :#000;
@@ -20,17 +25,13 @@
   font-family: 'Source Sans Pro', 'Apple LiGothic Medium', 'Microsoft JhengHei UI', 'Helvetica Neue', Arial, sans-serif;
   font-size: .85em;
   font-weight: normal;
-
-  z-index: 1001;
 }
 
-.panelbar.top {
-  top: 0;
-}
+.panelbar.top    { top: 0; }
+.panelbar.bottom { bottom: 0; }
 
-.panelbar.bottom {
-  bottom: 0;
-}
+
+/* Buttons */
 
 .panelbar__btn {
   display: inline-block;
@@ -57,9 +58,7 @@
   color: #999;
 }
 
-.panelbar__btn > a:before,
-.panelbar__btn > span:before {
-  font-family: "FontAwesome";
+.panelbar__btn i {
   margin-right: 7px;
 }
 
@@ -113,27 +112,9 @@
 }
 
 
-/* Icons */
-
-.panelbar__btn--panel > a:before {
-  content: "\f085";
-}
-.panelbar__btn--edit > a:before {
-  content: "\f044";
-}
-.panelbar__btn--lang > a:before {
-  content: "\f024";
-}
-.panelbar__btn--user > a:before {
-  content: "\f007";
-}
-.panelbar__btn--logout > a:before {
-  content: "\f08b";
-}
-
 /* Mobile */
 
-@media (max-width: 550px) {
+@media (max-width: 650px) {
 
   .panelbar__btn > a > span,
   .panelbar__btn > span > span {

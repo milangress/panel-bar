@@ -3,7 +3,7 @@
 
 class PanelBar {
 
-  public  $defaults  = array('panel', 'edit', 'languages', 'logout', 'user');
+  public  $defaults  = array('panel', 'edit', 'toggle', 'languages', 'logout', 'user');
   public  $site      = null;
   public  $page      = null;
   public  $position  = null;
@@ -49,33 +49,68 @@ class PanelBar {
     return $content;
   }
 
-  protected function edit() {
-    $block  = '<div class="panelbar__btn panelbar__btn--edit">';
-    $block .= '<a href="'.$this->site->url().'/panel/#/pages/show/'.$this->page->uri().'"><span>Edit</span></a>';
+  public static function link($args) {
+    $block  = '<div class="panelbar__btn panelbar__btn--'.$args['id'].'">';
+    $block .= '<a href="'.$args['url'].'">';
+    $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
+    $block .= '<span>'.$args['text'].'</span>';
+    $block .= '</a>';
     $block .= '</div>';
     return $block;
   }
 
-  protected function logout() {
-    $block  = '<div class="panelbar__btn panelbar__btn--logout">';
-    $block .= '<a href="'.$this->site->url().'/panel/logout"><span>Logout</span></a>';
-    $block .= '</div>';
-    return $block;
+  protected function panel() {
+    return self::link(array(
+      'id'   => 'panel',
+      'icon' => 'cogs',
+      'url'  => site()->url().'/panel',
+      'text' => 'Panel'
+    ));
+  }
+
+  protected function edit() {
+    return self::link(array(
+      'id'   => 'edit',
+      'icon' => 'pencil-square-o',
+      'url'  => $this->site->url().'/panel/#/pages/show/'.$this->page->uri(),
+      'text' => 'Edit'
+    ));
+  }
+
+  protected function toggle() {
+    return self::link(array(
+      'id'   => 'toggle',
+      'icon' => $this->page->visible() ? 'toggle-on' : 'toggle-off',
+      'url'  => $this->site->url().'/panel/#/pages/toggle/'.$this->page->uri(),
+      'text' => $this->page->visible() ? 'Visible' : 'Invisible'
+    ));
   }
 
   protected function user() {
-    $block  = '<div class="panelbar__btn panelbar__btn--user">';
-    $block .= '<a href="'.$this->site->url().'/panel/#/users/edit/'.$this->site->user().'"><span>'.$this->site->user().'</span></a>';
-    $block .= '</div>';
-    return $block;
+    return self::link(array(
+      'id'   => 'user',
+      'icon' => 'user',
+      'url'  => $this->site->url().'/panel/#/users/edit/'.$this->site->user(),
+      'text' => $this->site->user()
+    ));
   }
+
+  protected function logout() {
+    return self::link(array(
+      'id'   => 'logout',
+      'icon' => 'sign-out',
+      'url'  => $this->site->url().'/panel/logout',
+      'text' => 'Logout'
+    ));
+  }
+
 
   protected function languages() {
     if ($languages = $this->site->languages()) {
       $block  = '<div class="panelbar__btn panelbar__btn--lang">';
 
       // current language
-      $block .= '<a href="'.$this->site->language()->url().'/'.$this->page->uri().'"><span>'.$this->site->language()->code().'</span></a>';
+      $block .= '<a href="'.$this->site->language()->url().'/'.$this->page->uri().'"><i class="fa fa-flag"></i><span>'.$this->site->language()->code().'</span></a>';
 
       // all other languages
       $block .= '<div class="panelbar__langs">';
@@ -87,13 +122,6 @@ class PanelBar {
       $block .= '</div>';
       return $block;
     }
-  }
-
-  protected function panel() {
-    $block  = '<div class="panelbar__btn panelbar__btn--panel">';
-    $block .= '<a href="'.site()->url().'/panel"><span>Panel</span></a>';
-    $block .= '</div>';
-    return $block;
   }
 
   protected function css() {
