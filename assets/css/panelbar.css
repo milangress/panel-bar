@@ -22,18 +22,18 @@ body {
   background-color :#000;
   box-shadow:rgba(0,0,0,0.075) 0 0px 4px;
 
+  font-family: 'Source Sans Pro', 'Apple LiGothic Medium', 'Microsoft JhengHei UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: .85em;
+  font-weight: normal;
+
   z-index: 1001;
 }
 
 .panelbar__btn {
   display: inline-block;
 
-  font-family: 'Source Sans Pro', 'Apple LiGothic Medium', 'Microsoft JhengHei UI', 'Helvetica Neue', Arial, sans-serif;
-  font-size: .85em;
-  font-weight: normal;
-
   padding: 15px 16px;
-  border-left: 1px solid #555;
+  border-left: 1px dotted #555;
 }
 
 .panelbar__btn > a {
@@ -53,4 +53,35 @@ body {
 
 .panelbar__btn--logout > a {
 
+}
+
+.panelbar__langs {
+  display: none;
+  position: absolute;
+  top: 100%;
+
+  margin-left: -16px;
+
+  background-color :#000;
+  box-shadow:rgba(0,0,0,0.075) 0 0px 4px;
+}
+
+.panelbar__btn--lang:hover .panelbar__langs {
+  display: block;
+}
+
+.panelbar__lang {
+  display: block;
+
+  padding: 5px 16px;
+
+  color: #fff;
+  transition: none;
+
+  border-top: 1px dotted #555;
+}
+
+.panelbar__lang:hover {
+  color: #999;
+  transition: none;
 }

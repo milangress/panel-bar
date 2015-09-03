@@ -64,10 +64,18 @@ class PanelBar {
 
   protected function languages() {
     if ($languages = $this->site->languages()) {
-      $block = '<div class="panelbar__btn panelbar__btn--lang">';
-      foreach($languages as $language) {
-        $block .= '<a href="'.$language->url().'/'.$this->page->uri().'">'.$language->name().'</a>';
+      $block  = '<div class="panelbar__btn panelbar__btn--lang">';
+
+      // current language
+      $block .= '<a href="'.$this->site->language()->url().'/'.$this->page->uri().'">'.$this->site->language()->name().'</a>';
+
+      // all other languages
+      $block .= '<div class="panelbar__langs">';
+      foreach($languages->not($this->site->language()->code()) as $language) {
+        $block .= '<a href="'.$language->url().'/'.$this->page->uri().'" class="panelbar__lang">'.$language->name().'</a>';
       }
+      $block .= '</div>';
+
       $block .= '</div>';
       return $block;
     }
