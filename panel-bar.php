@@ -49,14 +49,14 @@ class PanelBar {
 
   protected function edit() {
     $block  = '<div class="panelbar__btn panelbar__btn--edit">';
-    $block .= '<a href="'.$this->site->url().'/panel/#/pages/show/'.$this->page->uri().'">Edit</a>';
+    $block .= '<a href="'.$this->site->url().'/panel/#/pages/show/'.$this->page->uri().'"><span>Edit</span></a>';
     $block .= '</div>';
     return $block;
   }
 
   protected function logout() {
     $block  = '<div class="panelbar__btn panelbar__btn--logout">';
-    $block .= '<a href="'.$this->site->url().'/panel/logout">Logout</a>';
+    $block .= '<a href="'.$this->site->url().'/panel/logout"><span>Logout</span></a>';
     $block .= '</div>';
     return $block;
   }
@@ -66,12 +66,12 @@ class PanelBar {
       $block  = '<div class="panelbar__btn panelbar__btn--lang">';
 
       // current language
-      $block .= '<a href="'.$this->site->language()->url().'/'.$this->page->uri().'">'.$this->site->language()->name().'</a>';
+      $block .= '<a href="'.$this->site->language()->url().'/'.$this->page->uri().'"><span>'.$this->site->language()->code().'</span></a>';
 
       // all other languages
       $block .= '<div class="panelbar__langs">';
       foreach($languages->not($this->site->language()->code()) as $language) {
-        $block .= '<a href="'.$language->url().'/'.$this->page->uri().'" class="panelbar__lang">'.$language->name().'</a>';
+        $block .= '<a href="'.$language->url().'/'.$this->page->uri().'" class="panelbar__lang">'.$language->code().'</a>';
       }
       $block .= '</div>';
 
@@ -82,7 +82,7 @@ class PanelBar {
 
   protected function panel() {
     $block  = '<div class="panelbar__btn panelbar__btn--panel">';
-    $block .= '<a href="'.site()->url().'/panel">Panel</a>';
+    $block .= '<a href="'.site()->url().'/panel"><span>Panel</span></a>';
     $block .= '</div>';
     return $block;
   }

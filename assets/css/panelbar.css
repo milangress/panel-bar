@@ -41,7 +41,7 @@ body {
 .panelbar__btn > a,
 .panelbar__btn > span {
   display: inline-block;
-  padding: 10px 16px;
+  padding: 10px 18px;
 
   color: #fff;
   transition: none;
@@ -70,6 +70,7 @@ body {
 
 .panelbar__btn--lang {
   position: relative;
+  text-transform: uppercase;
 }
 
 .panelbar__langs {
@@ -112,4 +113,20 @@ body {
 }
 .panelbar__btn--logout > a:before {
   content: "\f08b";
+}
+
+/* Mobile */
+
+@media (max-width: 550px) {
+
+  .panelbar__btn > a > span,
+  .panelbar__btn > span > span {
+    display: none;
+  }
+
+  .panelbar__btn > a:before,
+  .panelbar__btn > span:before {
+    margin-right: 0;
+  }
+
 }
