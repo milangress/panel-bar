@@ -1,0 +1,33 @@
+
+body {
+  margin-top: 40px !important;
+}
+
+.panelbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 40px;
+  padding: 5px 15px;
+
+  background-color :#000;
+}
+
+.panelbar__btn {
+  display: inline-block;
+  font-size: .8em;
+}
+
+.panelbar__btn > a {
+  color: #fff;
+}
+
+.panelbar__btn--logout {
+  float: right;
+}
+
+.panelbar__btn--logout > a {
+
+}
