@@ -3,16 +3,16 @@
 
 class PanelBar {
 
-  public  $elements  = array('panel', 'edit', 'languages', 'logout');
+  public  $defaults  = array('panel', 'edit', 'languages', 'logout');
   public  $site      = null;
   public  $page      = null;
 
   private $assets    = __DIR__ . DS . 'assets';
-  private $protected = array('show', 'css', 'content');
+  private $protected = array('__construct', 'defaults','show', 'content', 'css');
 
 
   public function __construct($elements = null) {
-    $this->elements = is_array($elements) ? $elements : $this->elements;
+    $this->elements = is_array($elements) ? $elements : c::get('panelbar.elements', $this->defaults);
     $this->site     = site();
     $this->page     = page();
   }
@@ -30,20 +30,18 @@ class PanelBar {
     $content = '';
     foreach ($this->elements as $element) {
 
-      // NEEDS SIMPLIFICATION
-      // vvvvvvvv
-      if(!in_array($element, $this->protected)) {
-        if (is_callable($element)) {
-          $content .= call_user_func($element);
-        } elseif (is_callable(array('self', $element))) {
-          $content .= call_user_func(array('self', $element));
-        } else {
-          $content .= $element;
-        }
-      } else {
+      // $element is custom function
+      if (is_callable($element)) {
+        $content .= call_user_func($element);
+
+      // $element is default function
+      } elseif (is_callable(array('self', $element)) and !in_array($element, $this->protected)) {
+        $content .= call_user_func(array('self', $element));
+
+      // $element is a string
+      } elseif (is_string($element)) {
         $content .= $element;
       }
-      // ^^^^^^
 
     }
     return $content;
@@ -89,9 +87,14 @@ class PanelBar {
     return $block;
   }
 
-  public function css() {
+  protected function css() {
     $style = tpl::load($this->assets . DS . 'css' . DS . 'panelbar.css');
     return '<style>'.$style.'</style>';
+  }
+
+  public static function defaults() {
+    $self = new self();
+    return $self->defaults;
   }
 
 }
