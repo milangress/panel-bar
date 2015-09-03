@@ -7,6 +7,6 @@ This plugin enables you to include a panel bar on top of your site. The panel ba
 # Installation
 1. Copy the whole folder to `site/plugins/panel-bar`
 2. Include in your `site/snippets/header.php`:
-```
+```php
 <?php echo panelbar::show(); ?>
 ```
