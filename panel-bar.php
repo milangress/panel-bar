@@ -4,7 +4,9 @@
 class PanelBar {
 
   public static function show() {
-    return '<div class="panelbar">' . self::content() . '</div>' . self::css();
+    if ($user = site()->user() and $user->hasPanelAccess()) {
+      return '<div class="panelbar">' . self::content() . '</div>' . self::css();
+    }
   }
 
   protected static function css() {
