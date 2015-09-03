@@ -7,6 +7,7 @@ class PanelBar {
   public  $site      = null;
   public  $page      = null;
 
+  private $assets    = __DIR__ . DS . 'assets';
   private $protected = array('show', 'css', 'content');
 
 
@@ -49,7 +50,7 @@ class PanelBar {
   }
 
   protected function edit() {
-    $block  = '<div class="panelbar__btn">';
+    $block  = '<div class="panelbar__btn panelbar__btn--edit">';
     $block .= '<a href="'.$this->site->url().'/panel/#/pages/show/'.$this->page->uri().'">Edit</a>';
     $block .= '</div>';
     return $block;
@@ -82,14 +83,14 @@ class PanelBar {
   }
 
   protected function panel() {
-    $block  = '<div class="panelbar__btn">';
+    $block  = '<div class="panelbar__btn panelbar__btn--panel">';
     $block .= '<a href="'.site()->url().'/panel">Panel</a>';
     $block .= '</div>';
     return $block;
   }
 
   public function css() {
-    $style = tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.css');
+    $style = tpl::load($this->assets . DS . 'css' . DS . 'panelbar.css');
     return '<style>'.$style.'</style>';
   }
 
