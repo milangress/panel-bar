@@ -3,28 +3,34 @@
 
 class PanelBar {
 
-  public static $elements = array('languages', 'edit', 'panel', 'logout');
+  public  $elements  = array('panel', 'edit', 'languages', 'logout');
+  public  $site      = null;
+  public  $page      = null;
 
-  protected static $protected = array('show', 'css', 'content');
+  private $protected = array('show', 'css', 'content');
+
+
+  public function __construct($elements = null) {
+    $this->elements = is_array($elements) ? $elements : $this->elements;
+    $this->site     = site();
+    $this->page     = page();
+  }
 
   public static function show($elements = null) {
-    if ($user = site()->user() and $user->hasPanelAccess()) {
-      return '<div class="panelbar">' . self::content($elements) . '</div>' . self::css();
+    $self = new self($elements);
+
+    if ($user = $self->site->user() and $user->hasPanelAccess()) {
+      return '<div class="panelbar">'.$self->content().'</div>'.$self->css();
     }
   }
 
-  protected static function css() {
-    return '<style>'.tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.css').'</style>';
-  }
-
-  protected static function content($elements = null) {
-    $elements = is_null($elements) ? self::$elements : $elements;
+  protected function content() {
     $content = '';
-    foreach ($elements as $element) {
+    foreach ($this->elements as $element) {
 
       // NEEDS SIMPLIFICATION
       // vvvvvvvv
-      if(!in_array($element, self::$protected)) {
+      if(!in_array($element, $this->protected)) {
         if (is_callable($element)) {
           $content .= call_user_func($element);
         } elseif (is_callable(array('self', $element))) {
@@ -41,36 +47,40 @@ class PanelBar {
     return $content;
   }
 
-  protected static function edit() {
+  protected function edit() {
     $block  = '<div class="panelbar__btn">';
-    $block .= '<a href="'.site()->url().'/panel/#/pages/show/'.page()->uri().'">Edit</a>';
+    $block .= '<a href="'.$this->site->url().'/panel/#/pages/show/'.$this->page->uri().'">Edit</a>';
     $block .= '</div>';
     return $block;
   }
 
-  protected static function logout() {
+  protected function logout() {
     $block  = '<div class="panelbar__btn panelbar__btn--logout">';
-    $block .= '<a href="'.site()->url().'/panel/logout">Logout</a>';
+    $block .= '<a href="'.$this->site->url().'/panel/logout">Logout</a>';
     $block .= '</div>';
     return $block;
   }
 
-  protected static function languages() {
-    if ($languages = site()->languages()) {
+  protected function languages() {
+    if ($languages = $this->site->languages()) {
       $block = '<div class="panelbar__btn panelbar__btn--lang">';
       foreach($languages as $language) {
-        $block .= '<a href="' . $language->url() . '">' . $language->name() . '</a>';
+        $block .= '<a href="'.$language->url().'/'.$this->page->uri().'">'.$language->name().'</a>';
       }
       $block .= '</div>';
       return $block;
     }
   }
 
-  protected static function panel() {
+  protected function panel() {
     $block  = '<div class="panelbar__btn">';
     $block .= '<a href="'.site()->url().'/panel">Panel</a>';
     $block .= '</div>';
     return $block;
+  }
+
+  public function css() {
+    return '<style>'.tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.css').'</style>';
   }
 
 }
