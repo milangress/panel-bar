@@ -113,6 +113,9 @@ body {
 .panelbar__btn--lang > a:before {
   content: "\f024";
 }
+.panelbar__btn--user > a:before {
+  content: "\f007";
+}
 .panelbar__btn--logout > a:before {
   content: "\f08b";
 }

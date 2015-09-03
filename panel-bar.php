@@ -63,7 +63,7 @@ class PanelBar {
 
   protected function user() {
     $block  = '<div class="panelbar__btn panelbar__btn--user">';
-    $block .= '<span><span>User: </span><a href="'.$this->site->url().'/panel/#/users/edit/'.$this->site->user().'">'.$this->site->user().'</a></span>';
+    $block .= '<a href="'.$this->site->url().'/panel/#/users/edit/'.$this->site->user().'"><span>'.$this->site->user().'</span></a>';
     $block .= '</div>';
     return $block;
   }
