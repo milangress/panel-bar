@@ -34,7 +34,7 @@ body {
   color: #fff;
 }
 
-.panelbar__btn:not(:first-child):not(.panelbar__btn--logout) {
+.panelbar__btn:not(:first-child):not(:last-child) {
   border-left: 1px dotted #555;
 }
 
@@ -42,15 +42,16 @@ body {
 .panelbar__btn > span {
   display: inline-block;
   padding: 10px 18px;
+}
 
+.panelbar__btn a {
   color: #fff;
   transition: none;
 }
 
-.panelbar__btn > a:hover,
+.panelbar__btn a:hover,
 .panelbar__lang:hover  {
   color: #999;
-  transition: none;
 }
 
 .panelbar__btn > a:before,
@@ -61,6 +62,7 @@ body {
 
 /* Logout */
 
+.panelbar__btn--user,
 .panelbar__btn--logout {
   float: right;
 }

@@ -3,7 +3,7 @@
 
 class PanelBar {
 
-  public  $defaults  = array('panel', 'edit', 'languages', 'logout');
+  public  $defaults  = array('panel', 'edit', 'languages', 'logout', 'user');
   public  $site      = null;
   public  $page      = null;
 
@@ -57,6 +57,13 @@ class PanelBar {
   protected function logout() {
     $block  = '<div class="panelbar__btn panelbar__btn--logout">';
     $block .= '<a href="'.$this->site->url().'/panel/logout"><span>Logout</span></a>';
+    $block .= '</div>';
+    return $block;
+  }
+
+  protected function user() {
+    $block  = '<div class="panelbar__btn panelbar__btn--user">';
+    $block .= '<span><span>User: </span><a href="'.$this->site->url().'/panel/#/users/edit/'.$this->site->user().'">'.$this->site->user().'</a></span>';
     $block .= '</div>';
     return $block;
   }
