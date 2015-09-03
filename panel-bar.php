@@ -5,6 +5,8 @@ class PanelBar {
 
   public static $elements = array('languages', 'edit', 'logout');
 
+  protected static $protected = array('show', 'css', 'content');
+
   public static function show($elements = null) {
     if ($user = site()->user() and $user->hasPanelAccess()) {
       return '<div class="panelbar">' . self::content($elements) . '</div>' . self::css();
@@ -19,10 +21,12 @@ class PanelBar {
     $elements = is_null($elements) ? self::$elements : $elements;
     $content = '';
     foreach ($elements as $element) {
-      if (is_callable($element)) {
-        $content .= call_user_func($element);
-      } elseif (is_callable(array('self', $element))) {
-        $content .= call_user_func(array('self', $element));
+      if(!in_array($element, self::$protected)) {
+        if (is_callable($element)) {
+          $content .= call_user_func($element);
+        } elseif (is_callable(array('self', $element))) {
+          $content .= call_user_func(array('self', $element));
+        }
       }
     }
     return $content;
