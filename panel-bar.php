@@ -6,6 +6,7 @@ class PanelBar {
   public  $defaults  = array('panel', 'edit', 'languages', 'logout', 'user');
   public  $site      = null;
   public  $page      = null;
+  public  $position  = null;
 
   private $assets    = __DIR__ . DS . 'assets';
   private $protected = array('__construct', 'defaults','show', 'content', 'css');
@@ -15,12 +16,13 @@ class PanelBar {
     $this->elements = is_array($elements) ? $elements : c::get('panelbar.elements', $this->defaults);
     $this->site     = site();
     $this->page     = page();
+    $this->position = c::get('panelbar.position', 'top');
   }
 
   public static function show($elements = null) {
     if ($user = site()->user() and $user->hasPanelAccess()) {
       $self = new self($elements);
-      $bar  = '<div class="panelbar">'.$self->content().'</div>';
+      $bar  = '<div class="panelbar '.$self->position.'">'.$self->content().'</div>';
       $bar .= $self->css();
       return $bar;
     }
@@ -95,7 +97,8 @@ class PanelBar {
   }
 
   protected function css() {
-    $style = tpl::load($this->assets . DS . 'css' . DS . 'panelbar.css');
+    $style  = tpl::load($this->assets . DS . 'css' . DS . 'panelbar.css');
+    $style .= 'body {margin-'.$this->position.': 50px !important}';
     return '<style>'.$style.'</style>';
   }
 

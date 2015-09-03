@@ -7,13 +7,8 @@
     src: url(http://kirby:8888/panel/assets/fonts/sourcesanspro-400.woff) format("woff")
 }
 
-body {
-  margin-top: 50px !important;
-}
-
 .panelbar {
   position: fixed;
-  top: 0;
   left: 0;
   right: 0;
 
@@ -27,6 +22,14 @@ body {
   font-weight: normal;
 
   z-index: 1001;
+}
+
+.panelbar.top {
+  top: 0;
+}
+
+.panelbar.bottom {
+  bottom: 0;
 }
 
 .panelbar__btn {
@@ -78,12 +81,20 @@ body {
 .panelbar__langs {
   display: none;
   position: absolute;
-  top: 100%;
   min-width: 100%;
 
   background-color :#000;
   box-shadow:rgba(0,0,0,0.075) 0 0px 4px;
 }
+
+.panelbar.top .panelbar__langs {
+  top: 100%;
+}
+
+.panelbar.bottom .panelbar__langs {
+  bottom: 100%;
+}
+
 
 .panelbar__btn--lang:hover .panelbar__langs {
   display: block;
