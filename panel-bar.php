@@ -5,9 +5,9 @@ class PanelBar {
 
   public static $elements = array('languages', 'edit', 'logout');
 
-  public static function show() {
+  public static function show($elements = null) {
     if ($user = site()->user() and $user->hasPanelAccess()) {
-      return '<div class="panelbar">' . self::content() . '</div>' . self::css();
+      return '<div class="panelbar">' . self::content($elements) . '</div>' . self::css();
     }
   }
 
@@ -15,10 +15,15 @@ class PanelBar {
     return '<style>'.tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.css').'</style>';
   }
 
-  protected static function content() {
+  protected static function content($elements = null) {
+    $elements = is_null($elements) ? self::$elements : $elements;
     $content = '';
-    foreach (self::$elements as $element) {
-      if(is_callable(array('self', $element))) $content .= call_user_func(array('self', $element));
+    foreach ($elements as $element) {
+      if (is_callable($element)) {
+        $content .= call_user_func($element);
+      } elseif (is_callable(array('self', $element))) {
+        $content .= call_user_func(array('self', $element));
+      }
     }
     return $content;
   }
