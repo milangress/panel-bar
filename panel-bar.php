@@ -3,6 +3,8 @@
 
 class PanelBar {
 
+  public static $elements = array('languages', 'edit', 'logout');
+
   public static function show() {
     if ($user = site()->user() and $user->hasPanelAccess()) {
       return '<div class="panelbar">' . self::content() . '</div>' . self::css();
@@ -14,7 +16,14 @@ class PanelBar {
   }
 
   protected static function content() {
-    return self::languages() . self::logout();
+    $content = '';
+    foreach (self::$elements as $element) {
+      if(is_callable(array('self', $element))) $content .= call_user_func(array('self', $element));
+    }
+    return $content;
+  }
+
+  protected static function edit() {
   }
 
   protected static function logout() {
