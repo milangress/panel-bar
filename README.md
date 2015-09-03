@@ -1,4 +1,4 @@
-# Panel bar for Kirby 2 CMS
+# Panel Bar for Kirby 2 CMS
 
 This plugin enables you to include a panel bar on top of your site. The panel bar will only be visible to logged in users who are eligible to access the panel.
 
