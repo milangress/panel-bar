@@ -31,6 +31,20 @@
 .panelbar.bottom { bottom: 0; }
 
 
+.panelbar a {
+  color: #fff;
+  transition: none;
+}
+
+.panelbar a:hover {
+  color: #999;
+}
+
+.panelbar i {
+  margin-right: 7px;
+}
+
+
 /* Buttons */
 
 .panelbar__btn {
@@ -48,36 +62,27 @@
   padding: 10px 18px;
 }
 
-.panelbar__btn a {
-  color: #fff;
-  transition: none;
-}
-
-.panelbar__btn a:hover,
-.panelbar__lang:hover  {
-  color: #999;
-}
-
-.panelbar__btn i {
-  margin-right: 7px;
-}
-
-/* Logout */
-
-.panelbar__btn--user,
-.panelbar__btn--logout {
-  float: right;
-}
 
 
-/* Languages */
+/* Dropdowns */
 
-.panelbar__btn--lang {
+.panelbar__drop {
+  display: inline-block;
   position: relative;
+
+  color: #fff;
   text-transform: uppercase;
+
+  border-left: 1px dotted #555;
 }
 
-.panelbar__langs {
+.panelbar__drop > a,
+.panelbar__drop > span {
+  display: inline-block;
+  padding: 10px 18px;
+}
+
+.panelbar__dropitems {
   display: none;
   position: absolute;
   min-width: 100%;
@@ -86,20 +91,15 @@
   box-shadow:rgba(0,0,0,0.075) 0 0px 4px;
 }
 
-.panelbar.top .panelbar__langs {
-  top: 100%;
-}
-
-.panelbar.bottom .panelbar__langs {
-  bottom: 100%;
-}
+.panelbar.top    .panelbar__dropitems { top: 100%; }
+.panelbar.bottom .panelbar__dropitems { bottom: 100%; }
 
 
-.panelbar__btn--lang:hover .panelbar__langs {
+.panelbar__drop:hover .panelbar__dropitems {
   display: block;
 }
 
-.panelbar__lang {
+.panelbar__dropitem {
   display: block;
   padding: 10px 16px;
   text-align: center;

@@ -46,11 +46,19 @@ class PanelBar {
       }
 
     }
+
     return $content;
   }
 
+
+  /* Helpers */
+
+  public static function float($args) {
+    return isset($args['float']) ? 'style="float: '.$args['float'].';"' : '';
+  }
+
   public static function link($args) {
-    $block  = '<div class="panelbar__btn panelbar__btn--'.$args['id'].'">';
+    $block  = '<div class="panelbar__btn panelbar--'.$args['id'].'" '.self::float($args).'>';
     $block .= '<a href="'.$args['url'].'">';
     $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
     $block .= '<span>'.$args['text'].'</span>';
@@ -58,6 +66,29 @@ class PanelBar {
     $block .= '</div>';
     return $block;
   }
+
+  public static function dropdown($args) {
+    $block  = '<div class="panelbar__drop panelbar--'.$args['id'].'" '.self::float($args).'>';
+
+    // current item
+    $block .= '<a href="'.$args['first']['url'].'">';
+    $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
+    $block .= '<span>'.$args['first']['text'].'</span>';
+    $block .= '</a>';
+
+    // all other items
+    $block .= '<div class="panelbar__dropitems">';
+    foreach($args['others'] as $item) {
+      $block .= '<a href="'.$item['url'].'" class="panelbar__dropitem">'.$item['text'].'</a>';
+    }
+    $block .= '</div>';
+
+    $block .= '</div>';
+    return $block;
+  }
+
+
+  /* Elements */
 
   protected function panel() {
     return self::link(array(
@@ -88,41 +119,49 @@ class PanelBar {
 
   protected function user() {
     return self::link(array(
-      'id'   => 'user',
-      'icon' => 'user',
-      'url'  => $this->site->url().'/panel/#/users/edit/'.$this->site->user(),
-      'text' => $this->site->user()
+      'id'    => 'user',
+      'icon'  => 'user',
+      'url'   => $this->site->url().'/panel/#/users/edit/'.$this->site->user(),
+      'text'  => $this->site->user(),
+      'float' => 'right'
     ));
   }
 
   protected function logout() {
     return self::link(array(
-      'id'   => 'logout',
-      'icon' => 'sign-out',
-      'url'  => $this->site->url().'/panel/logout',
-      'text' => 'Logout'
+      'id'    => 'logout',
+      'icon'  => 'sign-out',
+      'url'   => $this->site->url().'/panel/logout',
+      'text'  => 'Logout',
+      'float' => 'right'
     ));
   }
 
 
   protected function languages() {
     if ($languages = $this->site->languages()) {
-      $block  = '<div class="panelbar__btn panelbar__btn--lang">';
-
-      // current language
-      $block .= '<a href="'.$this->site->language()->url().'/'.$this->page->uri().'"><i class="fa fa-flag"></i><span>'.$this->site->language()->code().'</span></a>';
-
-      // all other languages
-      $block .= '<div class="panelbar__langs">';
+      $items = array();
       foreach($languages->not($this->site->language()->code()) as $language) {
-        $block .= '<a href="'.$language->url().'/'.$this->page->uri().'" class="panelbar__lang">'.$language->code().'</a>';
+        array_push($items, array(
+          'url' => $language->url().'/'.$this->page->uri(),
+          'text' => $language->code()
+        ));
       }
-      $block .= '</div>';
 
-      $block .= '</div>';
-      return $block;
+      return self::dropdown(array(
+        'id'    => 'lang',
+        'icon'  => 'flag',
+        'first' => array(
+                    'url' => $this->site->language()->url().'/'.$this->page->uri(),
+                    'text' => $this->site->language()->code()
+                   ),
+        'others' => $items
+      ));
     }
   }
+
+
+  /* Assets */
 
   protected function css() {
     $style  = tpl::load($this->assets . DS . 'css' . DS . 'panelbar.min.css');
