@@ -8,7 +8,7 @@
 }
 
 body {
-  margin-top: 60px !important;
+  margin-top: 50px !important;
 }
 
 .panelbar {
@@ -17,8 +17,7 @@ body {
   left: 0;
   right: 0;
 
-  height: 60px;
-  padding: 0 30px;
+  height: 50px;
 
   background-color :#000;
   box-shadow:rgba(0,0,0,0.075) 0 0px 4px;
@@ -33,20 +32,23 @@ body {
 .panelbar__btn {
   display: inline-block;
   color: #fff;
+}
 
+.panelbar__btn:not(:first-child):not(.panelbar__btn--logout) {
   border-left: 1px dotted #555;
 }
 
 .panelbar__btn > a,
 .panelbar__btn > span {
   display: inline-block;
-  padding: 15px 16px;
+  padding: 10px 16px;
 
   color: #fff;
   transition: none;
 }
 
-.panelbar__btn > a:hover {
+.panelbar__btn > a:hover,
+.panelbar__lang:hover  {
   color: #999;
   transition: none;
 }
@@ -61,11 +63,6 @@ body {
 
 .panelbar__btn--logout {
   float: right;
-  border-left: none;
-}
-
-.panelbar__btn--logout > a:hover:before {
-  color: #b3000a;
 }
 
 
@@ -99,11 +96,6 @@ body {
   line-height: 1.2;
 
   border-top: 1px dotted #555;
-}
-
-.panelbar__lang:hover {
-  color: #999;
-  transition: none;
 }
 
 
