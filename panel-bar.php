@@ -17,10 +17,11 @@ class PanelBar {
   }
 
   public static function show($elements = null) {
-    $self = new self($elements);
-
-    if ($user = $self->site->user() and $user->hasPanelAccess()) {
-      return '<div class="panelbar">'.$self->content().'</div>'.$self->css();
+    if ($user = site()->user() and $user->hasPanelAccess()) {
+      $self = new self($elements);
+      $bar  = '<div class="panelbar">'.$self->content().'</div>';
+      $bar .= $self->css();
+      return $bar;
     }
   }
 
@@ -80,7 +81,8 @@ class PanelBar {
   }
 
   public function css() {
-    return '<style>'.tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.css').'</style>';
+    $style = tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.css');
+    return '<style>'.$style.'</style>';
   }
 
 }
