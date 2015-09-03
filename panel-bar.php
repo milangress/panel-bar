@@ -16,7 +16,10 @@ class PanelBar {
   }
 
   protected static function logout() {
-    return '<div class="panelbar__btn panelbar__btn--logout"><a href="">Logout</a></div>';
+    $block  = '<div class="panelbar__btn panelbar__btn--logout">';
+    $block .= '<a href="'.kirby()->urls()->index().'/panel/logout">Logout</a>';
+    $block .= '</div>';
+    return $block;
   }
 
   protected static function languages() {
