@@ -33,11 +33,15 @@ class PanelBar {
   }
 
   protected static function edit() {
+    $block  = '<div class="panelbar__btn">';
+    $block .= '<a href="'.site()->url().'/panel/#/pages/show/'.page()->uri().'">Edit</a>';
+    $block .= '</div>';
+    return $block;
   }
 
   protected static function logout() {
     $block  = '<div class="panelbar__btn panelbar__btn--logout">';
-    $block .= '<a href="'.kirby()->urls()->index().'/panel/logout">Logout</a>';
+    $block .= '<a href="'.site()->url().'/panel/logout">Logout</a>';
     $block .= '</div>';
     return $block;
   }
