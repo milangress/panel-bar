@@ -125,7 +125,7 @@ class PanelBar {
   }
 
   protected function css() {
-    $style  = tpl::load($this->assets . DS . 'css' . DS . 'panelbar.css');
+    $style  = tpl::load($this->assets . DS . 'css' . DS . 'panelbar.min.css');
     $style .= 'body {margin-'.$this->position.': 50px !important}';
     return '<style>'.$style.'</style>';
   }
