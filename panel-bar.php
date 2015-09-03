@@ -3,7 +3,7 @@
 
 class PanelBar {
 
-  public static $elements = array('languages', 'edit', 'logout');
+  public static $elements = array('languages', 'edit', 'panel', 'logout');
 
   protected static $protected = array('show', 'css', 'content');
 
@@ -21,13 +21,22 @@ class PanelBar {
     $elements = is_null($elements) ? self::$elements : $elements;
     $content = '';
     foreach ($elements as $element) {
+
+      // NEEDS SIMPLIFICATION
+      // vvvvvvvv
       if(!in_array($element, self::$protected)) {
         if (is_callable($element)) {
           $content .= call_user_func($element);
         } elseif (is_callable(array('self', $element))) {
           $content .= call_user_func(array('self', $element));
+        } else {
+          $content .= $element;
         }
+      } else {
+        $content .= $element;
       }
+      // ^^^^^^
+
     }
     return $content;
   }
@@ -55,6 +64,13 @@ class PanelBar {
       $block .= '</div>';
       return $block;
     }
+  }
+
+  protected static function panel() {
+    $block  = '<div class="panelbar__btn">';
+    $block .= '<a href="'.site()->url().'/panel">Panel</a>';
+    $block .= '</div>';
+    return $block;
   }
 
 }
