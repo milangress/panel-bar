@@ -119,12 +119,48 @@ panelbar::dropdown(array(
 ));
 ```
 
+**Example**
+```php
+c::set('panelbar.elements', array(
+  'panel', 
+  'edit',
+  'custom-link' => panelbar::link(array(
+                    'id'   => 'mum',
+                    'icon' => 'heart',
+                    'url'  => 'http://mydomain.com/pictureofmum.jpg',
+                    'text' => 'Mum'
+                  ));
+  'custom-dropdown' => 'dropitpanelbar'
+  'logout', 
+));
+
+function dropitpanelbar() {
+  return panelbar::dropdown(array(
+    'id'    => 'songs',
+    'icon'  => 'headphones',
+    'first' => array(
+                'url' => false,
+                'text' => 'Songs'
+               ),
+    'others' => array(
+                 0 => array(
+                       'url' => 'https://www.youtube.com/watch?v=BIp_Y28qyZc',
+                       'text' => 'Como Soy'
+                      ),
+                 1 => array(
+                       'url' => 'https://www.youtube.com/watch?v=gdby5w5rseo',
+                       'text' => 'Me Gusta'
+                      ),
+               )
+  ));
+}
+```
 
 ## Position of Panel Bar
 You can switch the position of the panel bar from the top to the bottom browser window border (in your `site/config/config.php`):
 
 ```php
-c::set('panelbar.position', 'bottom')
+c::set('panelbar.position', 'bottom');
 ```
 
 
