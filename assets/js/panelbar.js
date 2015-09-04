@@ -11,7 +11,7 @@ if (!jQuery) {
 
     // Visibility toggle
     $(".panelbar__switch").on("click", function () {
-      $(".panelbar, .panelbar__switch").toggleClass("hidden");
+      $(".panelbar").toggleClass("hidden");
     });
 
     // Element: toggle

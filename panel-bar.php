@@ -115,6 +115,7 @@ class PanelBar {
     $switch  = '<div class="panelbar__switch '.($hidden === true ? 'hidden' : '').'" id ="panelbar_switch">';
     $switch .= '<i class="fa fa-times-circle panelbar__switch--visible"></i>';
     $switch .= '<i class="fa fa-plus-circle panelbar__switch--hidden"></i>';
+    $switch .= '<i class="fa fa-circle panelbar__switch--bg"></i>';
     $switch .= '</div>';
     return $switch;
   }

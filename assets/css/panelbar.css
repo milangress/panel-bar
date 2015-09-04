@@ -125,27 +125,41 @@
 
 .panelbar__switch {
   position: fixed;
-  z-index: 9999;
-  top: 16px;
+  z-index: 9990;
   right: 12px;
 
   font-size: 17px;
   line-height: 1;
   color: #fff;
-
   cursor: pointer;
+}
+
+.panelbar.top    + .panelbar__switch { top: 16px; }
+.panelbar.bottom + .panelbar__switch { bottom: 16px; }
+
+.panelbar__switch--visible,
+.panelbar__switch--hidden {
+  position: relative;
+  z-index: 9999;
+}
+
+.panelbar__switch--bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  color: transparent;
 }
 
 .panelbar__switch:hover {
   color: #999;
 }
 
-.panelbar__switch.hidden {
+.panelbar.hidden + .panelbar__switch {
   color: #000;
 }
 
-
-.panelbar__switch.hidden .panelbar__switch--visible {
+.panelbar.hidden + .panelbar__switch > .panelbar__switch--visible {
   display: none;
 }
 
@@ -153,8 +167,12 @@
   display: none;
 }
 
-.panelbar__switch.hidden .panelbar__switch--hidden {
+.panelbar.hidden + .panelbar__switch > .panelbar__switch--hidden {
   display: block;
+}
+
+.panelbar.hidden + .panelbar__switch > .panelbar__switch--bg {
+  color: #fff;
 }
 
 /* Mobile */
