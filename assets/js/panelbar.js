@@ -7,7 +7,9 @@ if (!jQuery) {
   panelbar.classList.remove("hidden");
 
 } else {
-  $(".panelbar__switch").on("click", function () {
-    $(".panelbar, .panelbar__switch").toggleClass("hidden");
+  $(function() {
+    $(".panelbar__switch").on("click", function () {
+      $(".panelbar, .panelbar__switch").toggleClass("hidden");
+    });
   });
 }
