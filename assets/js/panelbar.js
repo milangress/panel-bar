@@ -1,13 +1,54 @@
-if (!jQuery) {
-  // remove switch if jQuery isn't loaded
-  var switchbtn = document.getElementById("panelbar_switch");
+// Simple class handler library
+var hasClass = function (elem, className) {
+    return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+}
+var addClass = function (elem, className) {
+    if (!hasClass(elem, className)) {
+        elem.className += ' ' + className;
+    }
+}
+var removeClass = function (elem, className) {
+    var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+    if (hasClass(elem, className)) {
+        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+            newClass = newClass.replace(' ' + className + ' ', ' ');
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    }
+}
+
+var switchbtn = document.getElementById('panelbar_switch');
+var panelbar = document.getElementById('panelbar');
+var body = document.getElementsByTagName("body")[0];
+
+if ( 'querySelector' in document && 'addEventListener' in window ) {
+  
+    // Push body down if panelbar::hide is true
+    if(hasClass(panelbar, 'hidden')){}
+    else { body.setAttribute("style", "margin-top:48px;"); }
+    
+    // Visibility toggle & flip
+    switchbtn.addEventListener('click', function(e) {
+        
+        if ( hasClass(panelbar, 'hidden') ) {
+          removeClass(panelbar, 'hidden');
+          body.setAttribute("style", "margin-top:48px;");
+            }
+        else {
+          addClass(panelbar, 'hidden');
+          body.setAttribute("style", "margin-top:0px;");v
+            }
+
+  });
+}
+else{
+  // remove switch in legacy Browser
   switchbtn.remove();
-  var panelbar = document.getElementById("panelbar");
   panelbar.style.paddingRight = 0;
   panelbar.classList.remove("hidden");
+}
 
-} else {
-  $(function() {
+$(function() {
 
     // Visibility toggle & flip
     $(".panelbar__switch").on("click", function () {
@@ -42,4 +83,3 @@ if (!jQuery) {
     }
 
   });
-}
