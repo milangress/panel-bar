@@ -4,6 +4,7 @@ class PanelBar {
 
   public  $defaults  = array(
                         'panel',
+                        'add',
                         'edit',
                         'toggle',
                         'languages',
@@ -220,6 +221,16 @@ class PanelBar {
       'url'     => site()->url().'/panel',
       'label'   => 'Panel',
       'mobile'  => 'icon',
+    ));
+  }
+
+  protected function add() {
+    return self::link(array(
+      'id'     => 'add',
+      'icon'   => 'plus',
+      'url'    => $this->site->url().'/panel/#/pages/add/'.$this->page->uri(),
+      'label'  => 'Add',
+      'mobile' => 'icon',
     ));
   }
 
