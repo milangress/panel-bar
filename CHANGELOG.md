@@ -1,7 +1,10 @@
 # Changelog
 
 ## Version 0.3
+- Added a button to flip the panel bar from top to bottom and vice versa
 - Enhanced JS: toggle pages' visibility right from the panel bar (optional)
+- Added "New Page" default element
+- Visually more consistent with the panel
 
 ## Version 0.2
 - Improved element helpers
