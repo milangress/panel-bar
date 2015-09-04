@@ -1,5 +1,4 @@
-<?
-
+<?php
 
 class PanelBar {
 
@@ -8,7 +7,7 @@ class PanelBar {
   public  $page      = null;
   public  $position  = null;
 
-  private $assets    = __DIR__ . DS . 'assets';
+  private $assets    = null;
   private $protected = array('__construct', 'defaults','show', 'content', 'css');
 
 
@@ -17,6 +16,7 @@ class PanelBar {
     $this->site     = site();
     $this->page     = page();
     $this->position = c::get('panelbar.position', 'top');
+    $this->assets = __DIR__ . DS . 'assets';
   }
 
   public static function show($elements = null) {
