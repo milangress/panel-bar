@@ -194,7 +194,8 @@ class PanelBar {
       $block .= '<span '.((!isset($args['mobile']) or $args['mobile'] == 'icon') ? 'class="not-mobile"' : '').'>'.$args['label'].'</span>';
     }
 
-    $block .= '<i class="fa fa-caret-'.(c::get('panelbar.position') == 'bottom' ? 'up' : 'down').' fa-styleless"></i>';
+    $block .= '<i class="fa fa-caret-up fa-styleless"></i>';
+    $block .= '<i class="fa fa-caret-down fa-styleless"></i>';
     $block .= '</span>';
 
     // all items

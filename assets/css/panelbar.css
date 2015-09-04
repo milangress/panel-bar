@@ -54,6 +54,9 @@
   float: right;
 }
 
+.panelbar.top    .fa-styleless.fa-caret-up   { display: none; }
+.panelbar.bottom .fa-styleless.fa-caret-down { display: none; }
+
 /* Buttons */
 
 .panelbar__btn {
