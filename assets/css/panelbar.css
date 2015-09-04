@@ -166,8 +166,8 @@
 
 .panelbar__switch--bg {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 16px;
+  right: 17px;
   z-index: 1201;
   color: transparent;
 }
