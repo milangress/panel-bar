@@ -101,11 +101,8 @@ panelbar::link(array(
 panelbar::dropdown(array(
   'id'    => 'lang',
   'icon'  => 'flag',
-  'first' => array(
-              'url' => …,
-              'text' => …
-             ),
-  'others' => array(
+  'label' => 'Language',
+  'items' => array(
                0 => array(
                      'url' => …,
                      'text' => …
@@ -138,11 +135,8 @@ function dropitpanelbar() {
   return panelbar::dropdown(array(
     'id'    => 'songs',
     'icon'  => 'headphones',
-    'first' => array(
-                'url' => false,
-                'text' => 'Songs'
-               ),
-    'others' => array(
+    'label' => 'Songs',
+    'items' => array(
                  0 => array(
                        'url' => 'https://www.youtube.com/watch?v=BIp_Y28qyZc',
                        'text' => 'Como Soy'

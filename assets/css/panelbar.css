@@ -63,9 +63,10 @@
 
 
 .panelbar__btn  > a,
-.panelbar__drop > a {
+.panelbar__drop > span {
   display: inline-block;
   padding: 17px 18px;
+  cursor: pointer;
 }
 
 
@@ -80,6 +81,7 @@
 
   border-left: 1px dotted #555;
 }
+
 
 
 .panelbar__dropitems {

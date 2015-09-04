@@ -77,16 +77,16 @@ class PanelBar {
     $class  = 'panelbar__drop '.self::float($args).' panelbar--'.$args['id'];
     $block  = '<div class="'.$class.'">';
 
-    // current item
-    $block .= '<a href="'.$args['first']['url'].'">';
+    // label
+    $block .= '<span>';
     if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
-    if (isset($args['first']['text'])) $block .= '<span>'.$args['first']['text'].'</span>';
+    $block .= '<span>'.$args['label'].'</span>';
     $block .= '<i class="fa fa-caret-'.(c::get('panelbar.position') == 'bottom' ? 'up' : 'down').' fa-styleless"></i>';
-    $block .= '</a>';
+    $block .= '</span>';
 
-    // all other items
+    // all items
     $block .= '<div class="panelbar__dropitems">';
-    foreach($args['others'] as $item) {
+    foreach($args['items'] as $item) {
       $block .= '<a href="'.$item['url'].'" class="panelbar__dropitem">'.$item['text'].'</a>';
     }
     $block .= '</div>';
@@ -159,11 +159,8 @@ class PanelBar {
       return self::dropdown(array(
         'id'    => 'lang',
         'icon'  => 'flag',
-        'first' => array(
-                    'url' => $this->site->language()->url().'/'.$this->page->uri(),
-                    'text' => $this->site->language()->code()
-                   ),
-        'others' => $items
+        'label' => $this->site->language()->code(),
+        'items' => $items
       ));
     }
   }
@@ -176,6 +173,12 @@ class PanelBar {
     $style .= 'body {margin-'.(is_null($position) ? $this->position : $position).': 50px !important}';
     return '<style>'.$style.'</style>';
   }
+
+  protected function getJS() {
+    $script  = tpl::load(__DIR__ . DS . 'assets' . DS . 'js' . DS . 'panelbar.min.js');
+    return '<script>'.$script.'</script>';
+  }
+
 
   public static function css() {
     $position = c::get('panelbar.position', 'top');
