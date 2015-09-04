@@ -132,7 +132,7 @@ class PanelBar {
   }
 
   protected function __flipBtn() {
-    $flip  = '<div class="panelbar__flip">';
+    $flip  = '<div class="panelbar__flip" id ="panelbar_flip">';
     $flip .= '<i class="fa fa-arrow-circle-up panelbar__flip--top"></i>';
     $flip .= '<i class="fa fa-arrow-circle-down panelbar__flip--bottom"></i>';
     $flip .= '</div>';

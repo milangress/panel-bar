@@ -17,26 +17,49 @@ var removeClass = function (elem, className) {
     }
 }
 
+
 var switchbtn = document.getElementById('panelbar_switch');
 var panelbar = document.getElementById('panelbar');
+var flip = document.getElementById('panelbar_flip');
 var body = document.getElementsByTagName("body")[0];
 
 if ( 'querySelector' in document && 'addEventListener' in window ) {
 
     // Push body down if panelbar::hide is true
-    if(hasClass(panelbar, 'hidden')){}
-    else { body.setAttribute("style", "margin-top:48px;"); }
+    if(!(hasClass(panelbar, 'hidden') && hasClass(panelbar, 'top'))){
+      body.setAttribute("style", "margin-top:48px;");
+    }
     
     // Visibility toggle & flip
     switchbtn.addEventListener('click', function(e) {
         
         if ( hasClass(panelbar, 'hidden') ) {
           removeClass(panelbar, 'hidden');
-          body.setAttribute("style", "margin-top:48px;");
-            }
+          if(hasClass(panelbar, 'top')){
+            body.setAttribute("style", "margin-top:48px;");
+          }
+        }
         else {
           addClass(panelbar, 'hidden');
-          body.setAttribute("style", "margin-top:0px;");
+          if(hasClass(panelbar, 'top')){
+            body.setAttribute("style", "margin-top:0px;");
+          }
+        }
+
+  });
+    flip.addEventListener('click', function(e) {
+        
+        if ( hasClass(panelbar, 'top') ) {
+          removeClass(panelbar, 'top');
+            }
+        else {
+          addClass(panelbar, 'top');
+            }
+        if ( hasClass(panelbar, 'bottom') ) {
+          removeClass(panelbar, 'bottom');
+            }
+        else {
+          addClass(panelbar, 'bottom');
             }
 
   });
