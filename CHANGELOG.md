@@ -5,6 +5,7 @@
 - Enhanced JS: toggle pages' visibility right from the panel bar (optional)
 - Added "New Page" default element
 - Visually more consistent with the panel
+- Option to set what gets hidden on mobile views (more responsiveness in future releases)
 
 ## Version 0.2
 - Improved element helpers
