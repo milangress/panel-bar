@@ -7,7 +7,6 @@ class PanelBar {
   public  $page      = null;
   public  $position  = null;
 
-  private $assets    = null;
   private $protected = array('__construct', 'defaults','show', 'content', 'css');
 
 
@@ -17,18 +16,22 @@ class PanelBar {
 
     $this->site     = site();
     $this->page     = page();
-    $this->assets   = __DIR__ . DS . 'assets';
   }
+
+  /* Public method to output panel bar */
 
   public static function show($elements = null, $css = true) {
     if ($user = site()->user() and $user->hasPanelAccess()) {
       if ($elements === true) $elements = self::defaults();
       $self = new self($elements);
       $bar  = '<div class="panelbar '.$self->position.'">'.$self->content().'</div>';
-      if ($css) $bar .= $self->css();
+      if ($css) $bar .= $self->getCSS();
       return $bar;
     }
   }
+
+
+  /* Get all elements together */
 
   protected function content() {
     $content = '';
@@ -60,7 +63,8 @@ class PanelBar {
   }
 
   public static function link($args) {
-    $block  = '<div class="panelbar__btn panelbar--'.$args['id'].'" '.self::float($args).'>';
+    $class  = 'panelbar__btn panelbar--'.$args['id'];
+    $block  = '<div class="'.$class.'" '.self::float($args).'>';
     $block .= '<a href="'.$args['url'].'">';
     if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
     if (isset($args['text'])) $block .= '<span>'.$args['text'].'</span>';
@@ -70,7 +74,8 @@ class PanelBar {
   }
 
   public static function dropdown($args) {
-    $block  = '<div class="panelbar__drop panelbar--'.$args['id'].'" '.self::float($args).'>';
+    $class  = 'panelbar__drop panelbar--'.$args['id'];
+    $block  = '<div class="'.$class.'" '.self::float($args).'>';
 
     // current item
     $block .= '<a href="'.$args['first']['url'].'">';
@@ -166,10 +171,16 @@ class PanelBar {
 
   /* Assets */
 
-  protected function css() {
-    $style  = tpl::load($this->assets . DS . 'css' . DS . 'panelbar.min.css');
-    $style .= 'body {margin-'.$this->position.': 50px !important}';
+  protected function getCSS($position = null) {
+    $style  = tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.min.css');
+    $style .= 'body {margin-'.(is_null($position) ? $this->position : $position).': 50px !important}';
     return '<style>'.$style.'</style>';
+  }
+
+  public static function css() {
+    $position = c::get('panelbar.position', 'top');
+    $self = new self();
+    return $self->getCSS();
   }
 
   public static function defaults() {
