@@ -13,17 +13,19 @@ class PanelBar {
 
   public function __construct($elements = null) {
     $this->elements = is_array($elements) ? $elements : c::get('panelbar.elements', $this->defaults);
+    $this->position = c::get('panelbar.position', 'top');
+
     $this->site     = site();
     $this->page     = page();
-    $this->position = c::get('panelbar.position', 'top');
-    $this->assets = __DIR__ . DS . 'assets';
+    $this->assets   = __DIR__ . DS . 'assets';
   }
 
-  public static function show($elements = null) {
+  public static function show($elements = null, $css = true) {
     if ($user = site()->user() and $user->hasPanelAccess()) {
+      if ($elements === true) $elements = self::defaults();
       $self = new self($elements);
       $bar  = '<div class="panelbar '.$self->position.'">'.$self->content().'</div>';
-      $bar .= $self->css();
+      if ($css) $bar .= $self->css();
       return $bar;
     }
   }
