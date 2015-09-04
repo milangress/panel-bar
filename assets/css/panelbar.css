@@ -2,13 +2,7 @@
 /* Fonts */
 
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
-
-@font-face {
-    font-family: 'Source Sans Pro';
-    font-style: normal;
-    font-weight: 400;
-    src: url(http://kirby:8888/panel/assets/fonts/sourcesanspro-400.woff) format("woff")
-}
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
 
 /* Bar */
 
