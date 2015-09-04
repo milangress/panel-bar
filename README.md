@@ -156,6 +156,10 @@ function dropitpanelbar() {
 ```
 *Be aware of the [current problem](https://github.com/distantnative/panel-bar/issues/4) with `config.php`.*
 
+You cannot use any of the following as name/id of your custom elements:  
+`show, hide, css, js, defaults, __construct, __output, __content, __switchBtn, __float, __getCSS, __getJS, link, dropdown`
+
+
 ## Position of Panel Bar
 You can switch the position of the panel bar from the top to the bottom browser window border (in your `site/config/config.php`):
 

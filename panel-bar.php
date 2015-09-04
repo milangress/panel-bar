@@ -15,21 +15,55 @@ class PanelBar {
   public  $position  = null;
 
   private $protected = array(
-                        '__construct',
                         'show',
                         'hide',
-                        'content',
-                        'switch',
-                        'link',
-                        'dropdown',
-                        'float',
                         'css',
                         'js',
-                        'getCSS',
-                        'getJS',
-                        'defaults'
+                        'defaults',
+
+                        '__construct',
+                        '__output',
+                        '__content',
+                        '__switchBtn',
+                        '__float',
+                        '__getCSS',
+                        '__getJS',
+
+                        'link',
+                        'dropdown',
                       );
 
+  /* Public methods to display panel bar or its parts */
+
+  public static function show($elements = null, $css = true, $js = true) {
+    $self = new self($elements);
+    return $self->__output($css, $js);
+  }
+
+  public static function hide($elements = null, $css = true, $js = true) {
+    $self = new self($elements);
+    return $self->__output($css, $js, true);
+  }
+
+  public static function css() {
+    $position = c::get('panelbar.position', 'top');
+    $self = new self();
+    return $self->__getCSS($position);
+  }
+
+  public static function js() {
+    $self = new self();
+    return $self->__getJS();
+  }
+
+  public static function defaults() {
+    $self = new self();
+    return $self->defaults;
+  }
+
+
+
+  /* Internal methods to build the panel bar */
 
   public function __construct($elements = null) {
     if ($elements === true) $elements = self::defaults();
@@ -41,34 +75,21 @@ class PanelBar {
     $this->page     = page();
   }
 
-  /* Public method to output panel bar */
 
-  public static function show($elements = null, $css = true, $js = true) {
-    $self = new self($elements);
-    return $self->output($css, $js);
-  }
 
-  public static function hide($elements = null, $css = true, $js = true) {
-    $self = new self($elements);
-    return $self->output($css, $js, true);
-  }
-
-  protected function output($css = true, $js = true, $hidden = false) {
+  protected function __output($css = true, $js = true, $hidden = false) {
     if ($user = site()->user() and $user->hasPanelAccess()) {
-      $bar  = '<div class="panelbar '.$this->position.' '.($hidden === true ? 'hidden' : '').'" id="panelbar">'.$this->content().'</div>';
+      $bar  = '<div class="panelbar '.$this->position.' '.($hidden === true ? 'hidden' : '').'" id="panelbar">'.$this->__content().'</div>';
 
-      $bar .= $this->switchBtn($hidden);
+      $bar .= $this->__switchBtn($hidden);
 
-      if ($css) $bar .= $this->getCSS();
-      if ($js)  $bar .= $this->getJS();
+      if ($css) $bar .= $this->__getCSS();
+      if ($js)  $bar .= $this->__getJS();
       return $bar;
     }
   }
 
-
-  /* Get all elements together */
-
-  protected function content() {
+  protected function __content() {
     $content = '';
     foreach ($this->elements as $element) {
 
@@ -90,7 +111,7 @@ class PanelBar {
     return $content;
   }
 
-  protected function switchBtn($hidden = false) {
+  protected function __switchBtn($hidden = false) {
     $switch  = '<div class="panelbar__switch '.($hidden === true ? 'hidden' : '').'" id ="panelbar_switch">';
     $switch .= '<i class="fa fa-times-circle panelbar__switch--visible"></i>';
     $switch .= '<i class="fa fa-plus-circle panelbar__switch--hidden"></i>';
@@ -98,15 +119,29 @@ class PanelBar {
     return $switch;
   }
 
-
-  /* Helpers */
-
-  public static function float($args) {
+  protected static function __float($args) {
     return (isset($args['float']) and $args['float'] !== false) ? 'panelbar__el--right' : '';
   }
 
+  /* Assets */
+
+  protected function __getCSS($position = null) {
+    $style  = tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.min.css');
+    $style .= 'body {margin-'.(is_null($position) ? $this->position : $position).': 50px !important}';
+    return '<style>'.$style.'</style>';
+  }
+
+  protected function __getJS() {
+    $script  = tpl::load(__DIR__ . DS . 'assets' . DS . 'js' . DS . 'panelbar.min.js');
+    return '<script>'.$script.'</script>';
+  }
+
+
+
+  /* Public helpers to build elements */
+
   public static function link($args) {
-    $class  = 'panelbar__btn '.self::float($args).' panelbar--'.$args['id'];
+    $class  = 'panelbar__btn '.self::__float($args).' panelbar--'.$args['id'];
     $block  = '<div class="'.$class.'">';
     $block .= '<a href="'.$args['url'].'">';
     if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
@@ -117,7 +152,7 @@ class PanelBar {
   }
 
   public static function dropdown($args) {
-    $class  = 'panelbar__drop '.self::float($args).' panelbar--'.$args['id'];
+    $class  = 'panelbar__drop '.self::__float($args).' panelbar--'.$args['id'];
     $block  = '<div class="'.$class.'">';
 
     // label
@@ -139,7 +174,8 @@ class PanelBar {
   }
 
 
-  /* Elements */
+
+  /* Default elements */
 
   protected function panel() {
     return self::link(array(
@@ -208,30 +244,5 @@ class PanelBar {
     }
   }
 
-
-  /* Assets */
-
-  protected function getCSS($position = null) {
-    $style  = tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.min.css');
-    $style .= 'body {margin-'.(is_null($position) ? $this->position : $position).': 50px !important}';
-    return '<style>'.$style.'</style>';
-  }
-
-  protected function getJS() {
-    $script  = tpl::load(__DIR__ . DS . 'assets' . DS . 'js' . DS . 'panelbar.min.js');
-    return '<script>'.$script.'</script>';
-  }
-
-
-  public static function css() {
-    $position = c::get('panelbar.position', 'top');
-    $self = new self();
-    return $self->getCSS();
-  }
-
-  public static function defaults() {
-    $self = new self();
-    return $self->defaults;
-  }
 
 }
