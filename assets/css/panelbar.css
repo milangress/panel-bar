@@ -17,7 +17,7 @@
   background-color :#000;
   box-shadow:rgba(0,0,0,0.075) 0 0px 4px;
 
-  padding-right: 25px;
+  padding-right: 60px;
 
   font-family: 'Source Sans Pro', 'Apple LiGothic Medium', 'Microsoft JhengHei UI', 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
@@ -62,7 +62,7 @@
 }
 
 .panelbar__btn:not(:first-child):not(:last-child) {
-  border-left: 1px dotted #555;
+  border-left: 1px solid #555;
 }
 
 
@@ -83,7 +83,7 @@
   position: relative;
 
   color: #fff;
-  border-left: 1px dotted #555;
+  border-left: 1px solid #555;
 }
 
 
@@ -118,48 +118,59 @@
   transition: none;
   line-height: 1.2;
 
-  border-top: 1px dotted #555;
+  border-top: 1px solid #555;
 }
 
-/* Switch */
-
-.panelbar__switch {
+/* Controls */
+.panelbar__controls {
   position: fixed;
-  z-index: 9990;
-  right: 12px;
+  z-index: 1200;
+  right: 0;
 
   font-size: 17px;
   line-height: 1;
   color: #fff;
-  cursor: pointer;
+
+  padding: 16px 17px 16px 10px;
+  border-left: 1px solid #555;
 }
 
-.panelbar.top    + .panelbar__switch { top: 16px; }
-.panelbar.bottom + .panelbar__switch { bottom: 16px; }
+.panelbar.top    + .panelbar__controls { top: 0; }
+.panelbar.bottom + .panelbar__controls { bottom: 0; }
+
+.panelbar__controls i:hover {
+  cursor: pointer;
+  color: #999;
+}
+
+.panelbar.hidden + .panelbar__controls {
+  color: #000;
+  border-left: none;
+}
+
+
+/* Switch */
+.panelbar__switch {
+  display: inline-block;
+}
+
 
 .panelbar__switch--visible,
 .panelbar__switch--hidden {
   position: relative;
-  z-index: 9999;
+  z-index: 1202;
 }
 
 .panelbar__switch--bg {
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 9998;
+  right: 0;
+  z-index: 1201;
   color: transparent;
 }
 
-.panelbar__switch:hover {
-  color: #999;
-}
 
-.panelbar.hidden + .panelbar__switch {
-  color: #000;
-}
-
-.panelbar.hidden + .panelbar__switch > .panelbar__switch--visible {
+.panelbar.hidden + .panelbar__controls .panelbar__switch--visible {
   display: none;
 }
 
@@ -167,17 +178,36 @@
   display: none;
 }
 
-.panelbar.hidden + .panelbar__switch > .panelbar__switch--hidden {
+.panelbar.hidden + .panelbar__controls .panelbar__switch--hidden {
   display: block;
 }
 
-.panelbar.hidden + .panelbar__switch > .panelbar__switch--bg {
+.panelbar.hidden + .panelbar__controls .panelbar__switch--bg {
   color: #fff;
+}
+
+/* Flip */
+
+.panelbar__flip {
+  display: inline-block;
+  margin-right: 7px;
+}
+
+.panelbar.hidden + .panelbar__controls .panelbar__flip {
+  display: none;
+}
+
+.panelbar.top + .panelbar__controls .panelbar__flip--top {
+ display: none;
+}
+
+.panelbar.bottom + .panelbar__controls .panelbar__flip--bottom {
+ display: none;
 }
 
 /* Mobile */
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
 
   .not-mobile {
     display: none;
@@ -186,6 +216,5 @@
   .panelbar i:not(.fa-styleless) {
     margin-right: 0;
   }
-
 
 }

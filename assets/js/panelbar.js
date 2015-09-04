@@ -9,9 +9,13 @@ if (!jQuery) {
 } else {
   $(function() {
 
-    // Visibility toggle
+    // Visibility toggle & flip
     $(".panelbar__switch").on("click", function () {
       $(".panelbar").toggleClass("hidden");
+    });
+
+    $(".panelbar__flip").on("click", function () {
+      $(".panelbar").toggleClass("top bottom");
     });
 
     // Element: toggle

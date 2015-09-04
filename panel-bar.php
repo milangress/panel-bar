@@ -81,7 +81,7 @@ class PanelBar {
     if ($user = site()->user() and $user->hasPanelAccess()) {
       $bar  = '<div class="panelbar '.$this->position.' '.($hidden === true ? 'hidden' : '').'" id="panelbar">'.$this->__content().'</div>';
 
-      $bar .= $this->__switchBtn($hidden);
+      $bar .= $this->__controlBtn($hidden);
 
       if ($css) $bar .= $this->__getCSS();
       if ($js)  $bar .= $this->__getJS();
@@ -111,13 +111,29 @@ class PanelBar {
     return $content;
   }
 
-  protected function __switchBtn($hidden = false) {
-    $switch  = '<div class="panelbar__switch '.($hidden === true ? 'hidden' : '').'" id ="panelbar_switch">';
+  protected function __controlBtn() {
+    $controls  = '<div class="panelbar__controls">';
+    $controls .= $this->__flipBtn();
+    $controls .= $this->__switchBtn();
+    $controls .= '</div>';
+    return $controls;
+  }
+
+  protected function __switchBtn() {
+    $switch  = '<div class="panelbar__switch" id ="panelbar_switch">';
     $switch .= '<i class="fa fa-times-circle panelbar__switch--visible"></i>';
     $switch .= '<i class="fa fa-plus-circle panelbar__switch--hidden"></i>';
     $switch .= '<i class="fa fa-circle panelbar__switch--bg"></i>';
     $switch .= '</div>';
     return $switch;
+  }
+
+  protected function __flipBtn() {
+    $flip  = '<div class="panelbar__flip">';
+    $flip .= '<i class="fa fa-arrow-circle-up panelbar__flip--top"></i>';
+    $flip .= '<i class="fa fa-arrow-circle-down panelbar__flip--bottom"></i>';
+    $flip .= '</div>';
+    return $flip;
   }
 
   protected static function __float($args) {
@@ -142,6 +158,8 @@ class PanelBar {
 
 
   /* Public helpers to build elements */
+
+  // TODO: remove redundancy from helpers (esp. in regard to responsiveness)
 
   public static function link($args) {
     $class  = 'panelbar__btn '.self::__float($args).' panelbar--'.$args['id'];
