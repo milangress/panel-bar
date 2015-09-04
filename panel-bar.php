@@ -195,14 +195,14 @@ class PanelBar {
       foreach($languages->not($this->site->language()->code()) as $language) {
         array_push($items, array(
           'url' => $language->url().'/'.$this->page->uri(),
-          'text' => $language->code()
+          'text' => strtoupper($language->code())
         ));
       }
 
       return self::dropdown(array(
         'id'    => 'lang',
         'icon'  => 'flag',
-        'label' => $this->site->language()->code(),
+        'label' => strtoupper($this->site->language()->code()),
         'items' => $items
       ));
     }
