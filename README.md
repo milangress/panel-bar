@@ -4,9 +4,12 @@
 [![Moral License](https://img.shields.io/badge/buy-moral_license-8dae28.svg)](https://gumroad.com/l/kirby-panelbar)
 
 
-This plugin enables you to include a panel bar on top of your site. The panel bar will only be visible to logged in users who are eligible to access the panel.
+This plugin enables you to include a panel bar on top of your site which gives you direct access to some administrative functions. The panel bar will only be visible to logged in users who are eligible to access the panel.
 
-![Panel Bar](screen.png)
+![Panel Bar in action](screen.png)
+
+**The plugin is free. However, I would really appreciate if you could support me with a [moral license](https://gumroad.com/l/kirby-panelbar)!**
+
 
 # Table of Contents
 1. [Installation & Update](#Installation)
@@ -15,9 +18,12 @@ This plugin enables you to include a panel bar on top of your site. The panel ba
 4. [Help & Improve](#Help)
 5. [Version History](#VersionHistory)
 
+
+
 # Installation & Update <a id="Installation"></a>
 1. Download [Panel Bar](https://github.com/distantnative/panel-bar/zipball/master/)
 2. Copy the whole folder to `site/plugins/panel-bar`
+
 
 
 # Usage <a id="Usage"></a>
@@ -26,32 +32,35 @@ Include in your `site/snippets/header.php`:
 <?php echo panelbar::show(); ?>
 ```
 
+
+
 # Options <a id="Options"></a>
 
-### Output CSS separately
+## Output CSS separately
 If you want to output the CSS not with the panel bar, but separately e.g. in the `<head>` section, you first have to use (first parameter is `true` to get all default elements):
 
-```
+```php
 <?php echo panelbar::show($elements = true, $css = false); ?>
 ```
 
 Then you can add the following code where you want to output the CSS:
 
-```
+```php
 <?php echo panelbar::css(); ?>
 ```
 
-### Custom elements
+
+## Custom elements
 
 Panel Bar is ready to include custom elements. Those should be set as config option:
 
-```
+```php
 c::set('panelbar.elements', array());
 ```
 
 This option overrides all default elements. You can either include them by naming them:
 
-```
+```php
 c::set('panelbar.elements', array(
   'panel', 
   'edit', 
@@ -64,7 +73,7 @@ c::set('panelbar.elements', array(
 
 Or you can merge the custom array with all default elements:
 
-```
+```php
 c::set('panelbar.elements', a::merge(array(
   'custom1',
   'custom 2'
@@ -78,7 +87,7 @@ For custom elements you can either pass the HTML directly in the array or use th
 Moreover, there are currently two helpers available to create elements:
 
 **Link elements**
-```
+```php
 panelbar::link(array(
   'id'   => 'panel',
   'icon' => 'cogs',
@@ -88,7 +97,7 @@ panelbar::link(array(
 ```
 
 **Dropdown elements**
-```
+```php
 panelbar::dropdown(array(
   'id'    => 'lang',
   'icon'  => 'flag',
@@ -110,8 +119,21 @@ panelbar::dropdown(array(
 ));
 ```
 
+
+## Position of Panel Bar
+You can switch the position of the panel bar from the top to the bottom browser window border (in your `site/config/config.php`):
+
+```php
+c::set('panelbar.position', 'bottom')
+```
+
+
+
 # Help & Improve <a id="Help"></a>
 *If you have any suggestions for new elements or further configuration options, [please let me know](https://github.com/distantnative/panel-bar/issues/new).*
+
+
+
 
 # Version history <a id="VersionHistory"></a>
 Check out the more or less complete [changelog](https://github.com/distantnative/panel-bar/blob/master/CHANGELOG.md).
