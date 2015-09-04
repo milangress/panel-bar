@@ -128,7 +128,6 @@ class PanelBar {
 
   protected function __getCSS($position = null) {
     $style  = tpl::load(__DIR__ . DS . 'assets' . DS . 'css' . DS . 'panelbar.min.css');
-    $style .= 'body {margin-'.(is_null($position) ? $this->position : $position).': 50px !important}';
     return '<style>'.$style.'</style>';
   }
 
@@ -148,8 +147,15 @@ class PanelBar {
     $class  = 'panelbar__btn '.self::__float($args).' panelbar--'.$args['id'];
     $block  = '<div class="'.$class.'">';
     $block .= '<a href="'.$args['url'].'">';
-    if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
-    if (isset($args['text'])) $block .= '<span>'.$args['text'].'</span>';
+
+    if (isset($args['icon'])) {
+      $block .= '<i class="fa fa-'.$args['icon'].' '.((isset($args['mobile']) and $args['mobile'] == 'label') ? 'not-mobile' : '').'"></i>';
+    }
+
+    if (isset($args['label'])) {
+      $block .= '<span '.((!isset($args['mobile']) or $args['mobile'] == 'icon') ? 'class="not-mobile"' : '').'>'.$args['label'].'</span>';
+    }
+
     $block .= '</a>';
     $block .= '</div>';
     return $block;
@@ -161,15 +167,22 @@ class PanelBar {
 
     // label
     $block .= '<span>';
-    if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
-    $block .= '<span>'.$args['label'].'</span>';
+
+    if (isset($args['icon'])) {
+      $block .= '<i class="fa fa-'.$args['icon'].' '.((isset($args['mobile']) and $args['mobile'] == 'label') ? 'not-mobile' : '').'"></i>';
+    }
+
+    if (isset($args['label'])) {
+      $block .= '<span '.((!isset($args['mobile']) or $args['mobile'] == 'icon') ? 'class="not-mobile"' : '').'>'.$args['label'].'</span>';
+    }
+
     $block .= '<i class="fa fa-caret-'.(c::get('panelbar.position') == 'bottom' ? 'up' : 'down').' fa-styleless"></i>';
     $block .= '</span>';
 
     // all items
     $block .= '<div class="panelbar__dropitems">';
     foreach($args['items'] as $item) {
-      $block .= '<a href="'.$item['url'].'" class="panelbar__dropitem">'.$item['text'].'</a>';
+      $block .= '<a href="'.$item['url'].'" class="panelbar__dropitem">'.$item['label'].'</a>';
     }
     $block .= '</div>';
 
@@ -183,48 +196,53 @@ class PanelBar {
 
   protected function panel() {
     return self::link(array(
-      'id'   => 'panel',
-      'icon' => 'cogs',
-      'url'  => site()->url().'/panel',
-      'text' => 'Panel'
+      'id'      => 'panel',
+      'icon'    => 'cogs',
+      'url'     => site()->url().'/panel',
+      'label'   => 'Panel',
+      'mobile'  => 'icon',
     ));
   }
 
   protected function edit() {
     return self::link(array(
-      'id'   => 'edit',
-      'icon' => 'pencil',
-      'url'  => $this->site->url().'/panel/#/pages/show/'.$this->page->uri(),
-      'text' => 'Edit'
+      'id'     => 'edit',
+      'icon'   => 'pencil',
+      'url'    => $this->site->url().'/panel/#/pages/show/'.$this->page->uri(),
+      'label'  => 'Edit',
+      'mobile' => 'icon',
     ));
   }
 
   protected function toggle() {
     return self::link(array(
-      'id'   => 'toggle',
-      'icon' => $this->page->isVisible() ? 'toggle-on' : 'toggle-off',
-      'url'  => $this->site->url().'/panel/#/pages/toggle/'.$this->page->uri(),
-      'text' => $this->page->isVisible() ? 'Visible' : 'Invisible'
+      'id'     => 'toggle',
+      'icon'   => $this->page->isVisible() ? 'toggle-on' : 'toggle-off',
+      'url'    => $this->site->url().'/panel/#/pages/toggle/'.$this->page->uri(),
+      'label'  => $this->page->isVisible() ? 'Visible' : 'Invisible',
+      'mobile' => 'icon',
     ));
   }
 
   protected function user() {
     return self::link(array(
-      'id'    => 'user',
-      'icon'  => 'user',
-      'url'   => $this->site->url().'/panel/#/users/edit/'.$this->site->user(),
-      'text'  => $this->site->user(),
-      'float' => 'right'
+      'id'     => 'user',
+      'icon'   => 'user',
+      'url'    => $this->site->url().'/panel/#/users/edit/'.$this->site->user(),
+      'label'  => $this->site->user(),
+      'mobile' => 'icon',
+      'float'  => 'right',
     ));
   }
 
   protected function logout() {
     return self::link(array(
-      'id'    => 'logout',
-      'icon'  => 'power-off',
-      'url'   => $this->site->url().'/panel/logout',
-      'text'  => 'Logout',
-      'float' => 'right'
+      'id'     => 'logout',
+      'icon'   => 'power-off',
+      'url'    => $this->site->url().'/panel/logout',
+      'label'  => 'Logout',
+      'mobile' => 'icon',
+      'float'  => 'right',
     ));
   }
 
@@ -234,16 +252,17 @@ class PanelBar {
       $items = array();
       foreach($languages->not($this->site->language()->code()) as $language) {
         array_push($items, array(
-          'url' => $language->url().'/'.$this->page->uri(),
-          'text' => strtoupper($language->code())
+          'url'   => $language->url().'/'.$this->page->uri(),
+          'label' => strtoupper($language->code())
         ));
       }
 
       return self::dropdown(array(
-        'id'    => 'lang',
-        'icon'  => 'flag',
-        'label' => strtoupper($this->site->language()->code()),
-        'items' => $items
+        'id'     => 'lang',
+        'icon'   => 'flag',
+        'label'  => strtoupper($this->site->language()->code()),
+        'items'  => $items,
+        'mobile' => 'label'
       ));
     }
   }

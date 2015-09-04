@@ -179,9 +179,13 @@
 
 @media (max-width: 650px) {
 
-  .panelbar__btn > a > span,
-  .panelbar__drop i:not(.fa-styleless) {
+  .not-mobile {
     display: none;
   }
+
+  .panelbar i:not(.fa-styleless) {
+    margin-right: 0;
+  }
+
 
 }

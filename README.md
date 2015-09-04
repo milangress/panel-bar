@@ -105,10 +105,11 @@ Moreover, there are currently two helpers available to create elements:
 **Link elements**
 ```php
 panelbar::link(array(
-  'id'   => 'panel',
-  'icon' => 'cogs',
-  'url'  => site()->url().'/panel',
-  'text' => 'Panel'
+  'id'     => 'panel',
+  'icon'   => 'cogs',
+  'url'    => site()->url().'/panel',
+  'label'  => 'Panel'
+  'mobile' => 'icon',
 ));
 ```
 
@@ -120,15 +121,16 @@ panelbar::dropdown(array(
   'label' => 'Language',
   'items' => array(
                0 => array(
-                     'url' => …,
-                     'text' => …
+                     'url'   => …,
+                     'label' => …
                     ),
                1 => array(
-                     'url' => …,
-                     'text' => …
+                     'url'   => …,
+                     'label' => …
                     ),
                …
-             )
+             ),
+  'mobile' => 'label',
 ));
 ```
 
