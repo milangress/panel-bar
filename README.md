@@ -129,8 +129,8 @@ c::set('panelbar.elements', array(
                     'icon' => 'heart',
                     'url'  => 'http://mydomain.com/pictureofmum.jpg',
                     'text' => 'Mum'
-                  ));
-  'custom-dropdown' => 'dropitpanelbar'
+                  )),
+  'custom-dropdown' => 'dropitpanelbar',
   'logout', 
 ));
 
@@ -155,6 +155,7 @@ function dropitpanelbar() {
   ));
 }
 ```
+*Be aware of the [current problem](https://github.com/distantnative/panel-bar/issues/4) with `config.php`.*
 
 ## Position of Panel Bar
 You can switch the position of the panel bar from the top to the bottom browser window border (in your `site/config/config.php`):
