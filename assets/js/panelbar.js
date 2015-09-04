@@ -1,20 +1,22 @@
 // Simple class handler library
 var hasClass = function (elem, className) {
-    return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+  return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
 }
+
 var addClass = function (elem, className) {
-    if (!hasClass(elem, className)) {
-        elem.className += ' ' + className;
-    }
+  if (!hasClass(elem, className)) {
+    elem.className += ' ' + className;
+  }
 }
+
 var removeClass = function (elem, className) {
-    var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
-    if (hasClass(elem, className)) {
-        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
-            newClass = newClass.replace(' ' + className + ' ', ' ');
-        }
-        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+  var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+  if (hasClass(elem, className)) {
+    while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+      newClass = newClass.replace(' ' + className + ' ', ' ');
     }
+    elem.className = newClass.replace(/^\s+|\s+$/g, '');
+  }
 }
 
 
@@ -27,45 +29,47 @@ var body = document.getElementsByTagName("body")[0];
 if ( 'querySelector' in document && 'addEventListener' in window ) { 
 
     // Push body down if panelbar::hide is true
-    if(!(hasClass(panelbar, 'hidden') && hasClass(panelbar, 'top'))){
+    if (!(hasClass(panelbar, 'hidden') && hasClass(panelbar, 'top'))){
       body.setAttribute("style", "margin-top:48px;");
     }
     
     // Visibility toggle & flip
-    switchbtn.addEventListener('click', function(e) {
-        
-        if ( hasClass(panelbar, 'hidden') ) {
-          removeClass(panelbar, 'hidden');
-          if(hasClass(panelbar, 'top')){
+    switchbtn.addEventListener('click', function (e) {
+
+      if (hasClass(panelbar, 'hidden') ) {
+        removeClass(panelbar, 'hidden');
+        if (hasClass(panelbar, 'top')){
             body.setAttribute("style", "margin-top:48px;"); // Push body down
           }
         }
+
         else {
           addClass(panelbar, 'hidden');
-          if(hasClass(panelbar, 'top')){
+          if (hasClass(panelbar, 'top')){
             body.setAttribute("style", "margin-top:0px;"); // Push body down
           }
         }
 
-  });
-    flip.addEventListener('click', function(e) {
-        
-        if ( hasClass(panelbar, 'top') ) {
-          removeClass(panelbar, 'top');
-            }
-        else {
-          addClass(panelbar, 'top');
-            }
-        if ( hasClass(panelbar, 'bottom') ) {
-          removeClass(panelbar, 'bottom');
-            }
-        else {
-          addClass(panelbar, 'bottom');
-            }
+      });
+    flip.addEventListener('click', function (e) {
 
-  });
-}
-else{
+      if (hasClass(panelbar, 'top') ) {
+        removeClass(panelbar, 'top');
+      }
+      else {
+        addClass(panelbar, 'top');
+      }
+
+      if (hasClass(panelbar, 'bottom') ) {
+        removeClass(panelbar, 'bottom');
+      }
+      else {
+        addClass(panelbar, 'bottom');
+      }
+
+    });
+  }
+else {
   // remove switch in legacy Browser
   switchbtn.remove();
   panelbar.style.paddingRight = 0;
