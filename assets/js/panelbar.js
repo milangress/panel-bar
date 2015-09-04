@@ -25,12 +25,19 @@ var panelbar = document.getElementById('panelbar');
 var flip = document.getElementById('panelbar_flip');
 var body = document.getElementsByTagName("body")[0];
 
+//read current margin and add/substract
+function SetTopMargin (Value){
+  var marginBody = body.style.marginTop.replace('px', '').trim();
+  var newMarginBody = (+marginBody) + (+Value);
+  body.setAttribute("style", "margin-top:" + newMarginBody.toString() + "px");
+}
+
 //Cutting the mustard! (breaking the browser in two groups: html5 and html4)
 if ( 'querySelector' in document && 'addEventListener' in window ) { 
 
     // Push body down if panelbar::hide is true
     if (!(hasClass(panelbar, 'hidden') && hasClass(panelbar, 'top'))){
-      body.setAttribute("style", "margin-top:48px;");
+      SetTopMargin(+48);
     }
     
     // Visibility toggle & flip
@@ -39,14 +46,14 @@ if ( 'querySelector' in document && 'addEventListener' in window ) {
       if (hasClass(panelbar, 'hidden') ) {
         removeClass(panelbar, 'hidden');
         if (hasClass(panelbar, 'top')){
-            body.setAttribute("style", "margin-top:48px;"); // Push body down
+            SetTopMargin(+48); // Push body down
           }
         }
 
         else {
           addClass(panelbar, 'hidden');
           if (hasClass(panelbar, 'top')){
-            body.setAttribute("style", "margin-top:0px;"); // Push body down
+            SetTopMargin(-48); // Push body up
           }
         }
 
@@ -55,6 +62,7 @@ if ( 'querySelector' in document && 'addEventListener' in window ) {
 
       if (hasClass(panelbar, 'top') ) {
         removeClass(panelbar, 'top');
+        SetTopMargin(-48); // Push body up
       }
       else {
         addClass(panelbar, 'top');
@@ -62,6 +70,7 @@ if ( 'querySelector' in document && 'addEventListener' in window ) {
 
       if (hasClass(panelbar, 'bottom') ) {
         removeClass(panelbar, 'bottom');
+        SetTopMargin(+48); // Push body down
       }
       else {
         addClass(panelbar, 'bottom');
@@ -69,6 +78,7 @@ if ( 'querySelector' in document && 'addEventListener' in window ) {
 
     });
   }
+
 else {
   // remove switch in legacy Browser
   switchbtn.remove();
