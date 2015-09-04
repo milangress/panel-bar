@@ -4,7 +4,7 @@ if (!jQuery) {
   switchbtn.remove();
   var panelbar = document.getElementById("panelbar");
   panelbar.style.paddingRight = 0;
-
+  panelbar.classList.remove("hidden");
 
 } else {
   $(".panelbar__switch").on("click", function () {

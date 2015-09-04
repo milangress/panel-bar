@@ -32,7 +32,12 @@ Include in your `site/snippets/header.php`:
 <?php echo panelbar::show(); ?>
 ```
 
+Or with the following if you want the panel bar hidden on load:
+```php
+<?php echo panelbar::hide(); ?>
+```
 
+You can toggle the visibility of the panel bar on the right side, but only if your website already loads jQuery. If not, panel bar will simply hide the toggle switch and display the panel bar always.
 
 # Options <a id="Options"></a>
 
