@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 0.3
+- Enhanced JS: toggle pages' visibility right from the panel bar (optional)
+
 ## Version 0.2
 - Improved element helpers
 - Added a button to toggle visibility of panel bar

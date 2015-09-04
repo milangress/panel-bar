@@ -41,18 +41,29 @@ You can toggle the visibility of the panel bar on the right side, but only if yo
 
 # Options <a id="Options"></a>
 
-## Output CSS separately
-If you want to output the CSS not with the panel bar, but separately e.g. in the `<head>` section, you first have to use (first parameter is `true` to get all default elements):
+## Output CSS / JS separately
+If you want to output the CSS and/or JS not with the panel bar, but separately e.g. in the `<head>` section, you first have to use (first parameter is `true` to get all default elements):
 
 ```php
-<?php echo panelbar::show($elements = true, $css = false); ?>
+<?php echo panelbar::show($elements = true, $css = false, $js = false); ?>
 ```
 
-Then you can add the following code where you want to output the CSS:
+Then you can add the following code where you want to output the CSS/JS:
 
 ```php
 <?php echo panelbar::css(); ?>
+<?php echo panelbar::js(); ?>
 ```
+
+
+## Enhanced JS
+If you have jQuery already loaded, Panel Bar can do some enhanced features through javascript. For them you have to set the following config:
+
+```
+c::set('panelbar.enhancedJS', true);
+```
+
+So far, this enables you to toggle pages' visibility right from the panel bar without being redirected to the panel.
 
 
 ## Custom elements

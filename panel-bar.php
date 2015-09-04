@@ -133,6 +133,9 @@ class PanelBar {
 
   protected function __getJS() {
     $script  = tpl::load(__DIR__ . DS . 'assets' . DS . 'js' . DS . 'panelbar.min.js');
+    $script .= 'siteURL = "'.$this->site->url().'";';
+    $script .= 'currentURI = "'.$this->page->uri().'";';
+    $script .= 'enhancedJS ='.(c::get('panelbar.enhancedJS', false) ? 'true' : 'false').';';
     return '<script>'.$script.'</script>';
   }
 
@@ -198,9 +201,9 @@ class PanelBar {
   protected function toggle() {
     return self::link(array(
       'id'   => 'toggle',
-      'icon' => $this->page->visible() ? 'toggle-on' : 'toggle-off',
+      'icon' => $this->page->isVisible() ? 'toggle-on' : 'toggle-off',
       'url'  => $this->site->url().'/panel/#/pages/toggle/'.$this->page->uri(),
-      'text' => $this->page->visible() ? 'Visible' : 'Invisible'
+      'text' => $this->page->isVisible() ? 'Visible' : 'Invisible'
     ));
   }
 
