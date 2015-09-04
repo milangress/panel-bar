@@ -17,9 +17,15 @@
   background-color :#000;
   box-shadow:rgba(0,0,0,0.075) 0 0px 4px;
 
+  padding-right: 25px;
+
   font-family: 'Source Sans Pro', 'Apple LiGothic Medium', 'Microsoft JhengHei UI', 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   font-weight: normal;
+}
+
+.panelbar.hidden {
+  display: none;
 }
 
 .panelbar.top    { top: 0; }
@@ -117,6 +123,41 @@
   border-top: 1px dotted #555;
 }
 
+/* Switch */
+
+.panelbar__switch {
+  position: fixed;
+  z-index: 9999;
+  top: 16px;
+  right: 12px;
+
+  font-size: 17px;
+  line-height: 1;
+  color: #fff;
+
+  cursor: pointer;
+}
+
+.panelbar__switch:hover {
+  color: #999;
+}
+
+.panelbar__switch.hidden {
+  color: #000;
+}
+
+
+.panelbar__switch.hidden .panelbar__switch--visible {
+  display: none;
+}
+
+.panelbar__switch--hidden {
+  display: none;
+}
+
+.panelbar__switch.hidden .panelbar__switch--hidden {
+  display: block;
+}
 
 /* Mobile */
 

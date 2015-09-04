@@ -2,15 +2,38 @@
 
 class PanelBar {
 
-  public  $defaults  = array('panel', 'edit', 'toggle', 'languages', 'logout', 'user');
+  public  $defaults  = array(
+                        'panel',
+                        'edit',
+                        'toggle',
+                        'languages',
+                        'logout',
+                        'user'
+                      );
   public  $site      = null;
   public  $page      = null;
   public  $position  = null;
 
-  private $protected = array('__construct', 'defaults','show', 'content', 'css');
+  private $protected = array(
+                        '__construct',
+                        'show',
+                        'hide',
+                        'content',
+                        'switch',
+                        'link',
+                        'dropdown',
+                        'float',
+                        'css',
+                        'js',
+                        'getCSS',
+                        'getJS',
+                        'defaults'
+                      );
 
 
   public function __construct($elements = null) {
+    if ($elements === true) $elements = self::defaults();
+
     $this->elements = is_array($elements) ? $elements : c::get('panelbar.elements', $this->defaults);
     $this->position = c::get('panelbar.position', 'top');
 
@@ -20,12 +43,24 @@ class PanelBar {
 
   /* Public method to output panel bar */
 
-  public static function show($elements = null, $css = true) {
+  public static function show($elements = null, $css = true, $js = true) {
+    $self = new self($elements);
+    return $self->output($css, $js);
+  }
+
+  public static function hide($elements = null, $css = true, $js = true) {
+    $self = new self($elements);
+    return $self->output($css, $js, true);
+  }
+
+  protected function output($css = true, $js = true, $hidden = false) {
     if ($user = site()->user() and $user->hasPanelAccess()) {
-      if ($elements === true) $elements = self::defaults();
-      $self = new self($elements);
-      $bar  = '<div class="panelbar '.$self->position.'">'.$self->content().'</div>';
-      if ($css) $bar .= $self->getCSS();
+      $bar  = '<div class="panelbar '.$this->position.' '.($hidden === true ? 'hidden' : '').'" id="panelbar">'.$this->content().'</div>';
+
+      $bar .= $this->switchBtn($hidden);
+
+      if ($css) $bar .= $this->getCSS();
+      if ($js)  $bar .= $this->getJS();
       return $bar;
     }
   }
@@ -53,6 +88,14 @@ class PanelBar {
     }
 
     return $content;
+  }
+
+  protected function switchBtn($hidden = false) {
+    $switch  = '<div class="panelbar__switch '.($hidden === true ? 'hidden' : '').'" id ="panelbar_switch">';
+    $switch .= '<i class="fa fa-times-circle panelbar__switch--visible"></i>';
+    $switch .= '<i class="fa fa-plus-circle panelbar__switch--hidden"></i>';
+    $switch .= '</div>';
+    return $switch;
   }
 
 
