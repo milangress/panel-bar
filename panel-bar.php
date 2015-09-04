@@ -192,7 +192,7 @@ class PanelBar {
   protected function edit() {
     return self::link(array(
       'id'   => 'edit',
-      'icon' => 'pencil-square-o',
+      'icon' => 'pencil',
       'url'  => $this->site->url().'/panel/#/pages/show/'.$this->page->uri(),
       'text' => 'Edit'
     ));
