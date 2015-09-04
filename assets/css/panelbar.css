@@ -44,6 +44,9 @@
   margin-left: 7px;
 }
 
+.panelbar__el--right {
+  float: right;
+}
 
 /* Buttons */
 

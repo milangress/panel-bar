@@ -59,12 +59,12 @@ class PanelBar {
   /* Helpers */
 
   public static function float($args) {
-    return (isset($args['float']) and $args['float'] !== false) ? 'style="float: '.$args['float'].';"' : '';
+    return (isset($args['float']) and $args['float'] !== false) ? 'panelbar__el--right' : '';
   }
 
   public static function link($args) {
-    $class  = 'panelbar__btn panelbar--'.$args['id'];
-    $block  = '<div class="'.$class.'" '.self::float($args).'>';
+    $class  = 'panelbar__btn '.self::float($args).' panelbar--'.$args['id'];
+    $block  = '<div class="'.$class.'">';
     $block .= '<a href="'.$args['url'].'">';
     if (isset($args['icon'])) $block .= '<i class="fa fa-'.$args['icon'].'"></i>';
     if (isset($args['text'])) $block .= '<span>'.$args['text'].'</span>';
@@ -74,8 +74,8 @@ class PanelBar {
   }
 
   public static function dropdown($args) {
-    $class  = 'panelbar__drop panelbar--'.$args['id'];
-    $block  = '<div class="'.$class.'" '.self::float($args).'>';
+    $class  = 'panelbar__drop '.self::float($args).' panelbar--'.$args['id'];
+    $block  = '<div class="'.$class.'">';
 
     // current item
     $block .= '<a href="'.$args['first']['url'].'">';
