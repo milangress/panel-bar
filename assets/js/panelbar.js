@@ -22,7 +22,7 @@ var panelbar = document.getElementById('panelbar');
 var body = document.getElementsByTagName("body")[0];
 
 if ( 'querySelector' in document && 'addEventListener' in window ) {
-  
+
     // Push body down if panelbar::hide is true
     if(hasClass(panelbar, 'hidden')){}
     else { body.setAttribute("style", "margin-top:48px;"); }
@@ -36,7 +36,7 @@ if ( 'querySelector' in document && 'addEventListener' in window ) {
             }
         else {
           addClass(panelbar, 'hidden');
-          body.setAttribute("style", "margin-top:0px;");v
+          body.setAttribute("style", "margin-top:0px;");
             }
 
   });
