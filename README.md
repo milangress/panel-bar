@@ -1,4 +1,4 @@
-![Panel Bar for Kirby CMS](http://distantnative.com/remote/github/kirby-footnotes-github.png)  
+![Panel Bar for Kirby CMS](http://distantnative.com/remote/github/kirby-panelbar-github.png)  
 
 [![Release](https://img.shields.io/github/release/distantnative/panel-bar.svg)](https://github.com/distantnative/panel-bar/releases)  [![Issues](https://img.shields.io/github/issues/distantnative/panel-bar.svg)](https://github.com/distantnative/panel-bar/issues) [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/distantnative/panel-bar/master/LICENSE)
 [![Moral License](https://img.shields.io/badge/buy-moral_license-8dae28.svg)](https://gumroad.com/l/kirby-panelbar)
