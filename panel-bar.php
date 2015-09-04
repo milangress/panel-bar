@@ -59,7 +59,7 @@ class PanelBar {
   /* Helpers */
 
   public static function float($args) {
-    return isset($args['float']) ? 'style="float: '.$args['float'].';"' : '';
+    return (isset($args['float']) and $args['float'] !== false) ? 'style="float: '.$args['float'].';"' : '';
   }
 
   public static function link($args) {
