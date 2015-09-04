@@ -23,7 +23,8 @@ var panelbar = document.getElementById('panelbar');
 var flip = document.getElementById('panelbar_flip');
 var body = document.getElementsByTagName("body")[0];
 
-if ( 'querySelector' in document && 'addEventListener' in window ) {
+//Cutting the mustard! (breaking the browser in two groups: html5 and html4)
+if ( 'querySelector' in document && 'addEventListener' in window ) { 
 
     // Push body down if panelbar::hide is true
     if(!(hasClass(panelbar, 'hidden') && hasClass(panelbar, 'top'))){
@@ -36,13 +37,13 @@ if ( 'querySelector' in document && 'addEventListener' in window ) {
         if ( hasClass(panelbar, 'hidden') ) {
           removeClass(panelbar, 'hidden');
           if(hasClass(panelbar, 'top')){
-            body.setAttribute("style", "margin-top:48px;");
+            body.setAttribute("style", "margin-top:48px;"); // Push body down
           }
         }
         else {
           addClass(panelbar, 'hidden');
           if(hasClass(panelbar, 'top')){
-            body.setAttribute("style", "margin-top:0px;");
+            body.setAttribute("style", "margin-top:0px;"); // Push body down
           }
         }
 
@@ -72,16 +73,6 @@ else{
 }
 
 $(function() {
-
-    // Visibility toggle & flip
-    $(".panelbar__switch").on("click", function () {
-      $(".panelbar").toggleClass("hidden");
-    });
-
-    $(".panelbar__flip").on("click", function () {
-      $(".panelbar").toggleClass("top bottom");
-    });
-
     // Element: toggle
     if (enhancedJS === true) {
       $(".panelbar--toggle > a").on("click", function (e) {
