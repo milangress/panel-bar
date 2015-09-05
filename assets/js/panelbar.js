@@ -29,7 +29,20 @@ var body = document.getElementsByTagName("body")[0];
 function SetTopMargin (Value){
   var marginBody = body.style.marginTop.replace('px', '').trim();
   var newMarginBody = (+marginBody) + (+Value);
-  body.setAttribute("style", "margin-top:" + newMarginBody.toString() + "px");
+  var top = marginBody;
+  function frame() {
+    if (top < newMarginBody){
+      top = (+top) + 6 
+    }
+    else {
+      top = (+top) - 6
+    }
+    body.setAttribute("style", "margin-top:" + top.toString() + "px");
+    console.log(top);
+    if (top == newMarginBody)  // check finish condition
+      clearInterval(id)
+  }
+  var id = setInterval(frame, 20) // draw every 20ms
 }
 
 //Cutting the mustard! (breaking the browser in two groups: html5 and html4)
