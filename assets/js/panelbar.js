@@ -1,45 +1,97 @@
-if (!jQuery) {
-  // remove switch if jQuery isn't loaded
-  var switchbtn = document.getElementById("panelbar_switch");
-  switchbtn.remove();
-  var panelbar = document.getElementById("panelbar");
-  panelbar.style.paddingRight = 0;
-  panelbar.classList.remove("hidden");
+
+// Class handler functions
+
+var hasClass = function (elem, className) {
+  return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+}
+
+var addClass = function (elem, className) {
+  if (!hasClass(elem, className)) {
+    elem.className += ' ' + className;
+  }
+}
+
+var removeClass = function (elem, className) {
+  var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+  if (hasClass(elem, className)) {
+    while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+      newClass = newClass.replace(' ' + className + ' ', ' ');
+    }
+    elem.className = newClass.replace(/^\s+|\s+$/g, '');
+  }
+}
+
+
+// Elements
+var panelbar  = document.getElementById('panelbar');
+var controls  = document.getElementById('panelbar_controls');
+var switchbtn = document.getElementById('panelbar_switch');
+var flipbtn   = document.getElementById('panelbar_flip');
+
+
+
+if ( 'querySelector' in document && 'addEventListener' in window ) {
+
+  // Visibility toggle & flip
+  switchbtn.addEventListener('click', function (e) {
+    if (hasClass(panelbar, 'hidden')) {
+      removeClass(panelbar, 'hidden');
+    } else {
+      addClass(panelbar, 'hidden');
+    }
+  });
+
+  flipbtn.addEventListener('click', function (e) {
+    if (hasClass(panelbar, 'top')) {
+      removeClass(panelbar, 'top');
+    } else {
+      addClass(panelbar, 'top');
+    }
+
+    if (hasClass(panelbar, 'bottom')) {
+      removeClass(panelbar, 'bottom');
+    } else {
+      addClass(panelbar, 'bottom');
+    }
+
+  });
+
 
 } else {
+  // remove switch in legacy Browser
+  controls.remove();
+  panelbar.style.paddingRight = 0;
+  panelbar.classList.remove("hidden");
+}
+
+
+
+// EnhancedJS with jQuery
+
+if (jQuery && enhancedJS === true) {
   $(function() {
 
-    // Visibility toggle & flip
-    $(".panelbar__switch").on("click", function () {
-      $(".panelbar").toggleClass("hidden");
-    });
-
-    $(".panelbar__flip").on("click", function () {
-      $(".panelbar").toggleClass("top bottom");
-    });
-
     // Element: toggle
-    if (enhancedJS === true) {
-      $(".panelbar--toggle > a").on("click", function (e) {
-        e.preventDefault();
+    $(".panelbar--toggle > a").on("click", function (e) {
+      e.preventDefault();
 
-        var status = $(this).find('span').text() == 'Visible' ? 'hide' : 'publish';
-        var url    = siteURL + "/panel/api/pages/" + status + "/" + currentURI;
+      var status = $(this).find('span').text() == 'Visible' ? 'hide' : 'publish';
+      var url    = siteURL + "/panel/api/pages/" + status + "/" + currentURI;
 
-        $.ajax({
-          type: "POST",
-          url: url
-        });
-
-        $(this).find('.fa').toggleClass('fa-toggle-off fa-toggle-on');
-        $(this).find('span').text(status == "hide" ? "Invisible" : "Visible");
-
-        setTimeout(function() {
-          location.reload();
-        }, 100);
-
+      $.ajax({
+        type: "POST",
+        url: url
       });
-    }
+
+      $(this).find('.fa').toggleClass('fa-toggle-off fa-toggle-on');
+      $(this).find('span').text(status == "hide" ? "Invisible" : "Visible");
+
+      setTimeout(function() {
+        location.reload();
+      }, 100);
+
+    });
+
 
   });
 }
