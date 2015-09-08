@@ -167,7 +167,11 @@ function dropitpanelbar() {
   ));
 }
 ```
-*Be aware of the [current problem](https://github.com/distantnative/panel-bar/issues/4) with `config.php`.*
+*If you use any helpers like `panelbar::link()`, `panelbar::dropdown()` or `panelbar::defaults()` in the `config.php`, you must include the following line before using them:*
+
+```php
+kirby()->plugin('panel-bar');
+``
 
 You cannot use any of the following as name/id of your custom elements:  
 `show, hide, css, js, defaults, __construct, __output, __content, __controlBtn, __switchBtn, __flipBtn, __float, __getCSS, __getJS, link, dropdown`
