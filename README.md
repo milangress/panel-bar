@@ -27,7 +27,7 @@ This plugin enables you to include a panel bar on top of your site which gives y
 
 
 # Usage <a id="Usage"></a>
-Include in your `site/snippets/header.php`:
+Include in your `site/snippets/footer.php` right before the `</body>` tag:
 ```php
 <?php echo panelbar::show(); ?>
 ```
