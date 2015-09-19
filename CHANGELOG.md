@@ -1,10 +1,15 @@
 # Changelog
 
+## Version 0.4
+- Fewer jQuery dependencies
+- Cleaner CSS and JS code and compression
+
 ## Version 0.3
 - Added a button to flip the panel bar from top to bottom and vice versa
 - Enhanced JS: toggle pages' visibility right from the panel bar (optional)
 - Added "New Page" default element
 - Visually more consistent with the panel
+- Option to set what gets hidden on mobile views (more responsiveness in future releases)
 
 ## Version 0.2
 - Improved element helpers

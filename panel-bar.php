@@ -115,7 +115,7 @@ class PanelBar {
   }
 
   protected function __controlBtn() {
-    $controls  = '<div class="panelbar__controls">';
+    $controls  = '<div class="panelbar__controls" id ="panelbar_control">';
     $controls .= $this->__flipBtn();
     $controls .= $this->__switchBtn();
     $controls .= '</div>';
@@ -151,10 +151,10 @@ class PanelBar {
   }
 
   protected function __getJS() {
-    $script  = tpl::load(__DIR__ . DS . 'assets' . DS . 'js' . DS . 'panelbar.js');
-    $script .= 'siteURL = "'.$this->site->url().'";';
-    $script .= 'currentURI = "'.$this->page->uri().'";';
-    $script .= 'enhancedJS ='.(c::get('panelbar.enhancedJS', false) ? 'true' : 'false').';';
+    $script  = 'siteURL="'.$this->site->url().'";';
+    $script .= 'currentURI="'.$this->page->uri().'";';
+    $script .= 'enhancedJS='.(c::get('panelbar.enhancedJS', false) ? 'true' : 'false').';';
+    $script .= tpl::load(__DIR__ . DS . 'assets' . DS . 'js' . DS . 'panelbar.min.js');
     return '<script>'.$script.'</script>';
   }
 
