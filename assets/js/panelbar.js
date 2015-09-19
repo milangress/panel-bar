@@ -42,7 +42,7 @@ function SetTopMargin (Value){
     if (top == newMarginBody)  // check finish condition
       clearInterval(id)
   }
-  var id = setInterval(frame, 20) // draw every 20ms
+  var id = setInterval(frame, 10) // draw every 20ms
 }
 
 //Cutting the mustard! (breaking the browser in two groups: html5 and html4)

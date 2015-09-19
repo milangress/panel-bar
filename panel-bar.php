@@ -151,7 +151,7 @@ class PanelBar {
   }
 
   protected function __getJS() {
-    $script  = tpl::load(__DIR__ . DS . 'assets' . DS . 'js' . DS . 'panelbar.min.js');
+    $script  = tpl::load(__DIR__ . DS . 'assets' . DS . 'js' . DS . 'panelbar.js');
     $script .= 'siteURL = "'.$this->site->url().'";';
     $script .= 'currentURI = "'.$this->page->uri().'";';
     $script .= 'enhancedJS ='.(c::get('panelbar.enhancedJS', false) ? 'true' : 'false').';';
